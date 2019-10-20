@@ -1,6 +1,7 @@
 package br.com.mov.views.fragment;
 
 import android.graphics.Typeface;
+import android.os.Build;
 import android.os.Bundle;
 import android.view.LayoutInflater;
 import android.view.View;
@@ -18,6 +19,7 @@ import com.google.android.material.tabs.TabLayout;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 import java.util.Timer;
 import java.util.TimerTask;
 
@@ -66,6 +68,7 @@ public class HomeFragment extends Fragment {
         Timer timer = new Timer();
         timer.scheduleAtFixedRate(new SliderTimer(), 4000, 6000);
 
+
         indicator.setupWithViewPager(sliderPager, true);
 
         List<Movie> movies = new ArrayList<>();
@@ -110,16 +113,18 @@ public class HomeFragment extends Fragment {
 
         @Override
         public void run() {
-            getActivity().runOnUiThread(new Runnable() {
-                @Override
-                public void run() {
-                    if (sliderPager.getCurrentItem() < slideList.size() - 1) {
-                        sliderPager.setCurrentItem(sliderPager.getCurrentItem() + 1);
-                    } else {
-                        sliderPager.setCurrentItem(0);
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && getActivity() != null) {
+                Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
+                    @Override
+                    public void run() {
+                        if (sliderPager.getCurrentItem() < slideList.size() - 1) {
+                            sliderPager.setCurrentItem(sliderPager.getCurrentItem() + 1);
+                        } else {
+                            sliderPager.setCurrentItem(0);
+                        }
                     }
-                }
-            });
+                });
+            }
         }
     }
 }
