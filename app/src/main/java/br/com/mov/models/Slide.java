@@ -1,4 +1,4 @@
-package br.com.mov;
+package br.com.mov.models;
 
 public class Slide {
 

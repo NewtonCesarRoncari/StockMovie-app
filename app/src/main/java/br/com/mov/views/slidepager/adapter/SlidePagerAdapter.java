@@ -1,4 +1,4 @@
-package br.com.mov;
+package br.com.mov.views.slidepager.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -10,6 +10,9 @@ import androidx.annotation.NonNull;
 import androidx.viewpager.widget.PagerAdapter;
 
 import java.util.List;
+
+import br.com.mov.R;
+import br.com.mov.models.Slide;
 
 public class SlidePagerAdapter extends PagerAdapter {
 

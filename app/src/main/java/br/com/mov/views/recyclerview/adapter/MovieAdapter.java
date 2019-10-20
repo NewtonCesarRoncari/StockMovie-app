@@ -1,4 +1,4 @@
-package br.com.mov;
+package br.com.mov.views.recyclerview.adapter;
 
 import android.content.Context;
 import android.view.LayoutInflater;
@@ -12,10 +12,13 @@ import androidx.recyclerview.widget.RecyclerView;
 
 import java.util.List;
 
+import br.com.mov.R;
+import br.com.mov.models.Movie;
+
 public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder> {
 
-    Context context;
-    List<Movie> movies;
+    private Context context;
+    private List<Movie> movies;
 
     public MovieAdapter(Context context, List<Movie> movies) {
         this.context = context;
@@ -43,12 +46,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
         return movies.size();
     }
 
-    public class MyViewHolder extends RecyclerView.ViewHolder{
+    class MyViewHolder extends RecyclerView.ViewHolder {
 
         private TextView movieTitle;
         private ImageView movieImg;
 
-        public MyViewHolder(@NonNull View itemView) {
+        MyViewHolder(@NonNull View itemView) {
             super(itemView);
 
             movieTitle = itemView.findViewById(R.id.item_movie_title);
