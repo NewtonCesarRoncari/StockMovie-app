@@ -33,11 +33,6 @@ public class HomeFragment extends Fragment {
 
     private List<Slide> slideList;
     private ViewPager sliderPager;
-    private TabLayout indicator;
-    private RecyclerView moviesRv;
-    private RecyclerView moviesfiltrated;
-    private Typeface font;
-    private TextView firstMovies, secondMovies;
 
     @Nullable
     @Override
@@ -45,14 +40,14 @@ public class HomeFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_home, container, false);
         getActivity().setTitle("Sotck Movie");
 
-        font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/OpenSans-Semibold.ttf");
+        Typeface font = Typeface.createFromAsset(getActivity().getAssets(), "fonts/OpenSans-Semibold.ttf");
 
         sliderPager = view.findViewById(R.id.view_pager);
-        indicator = view.findViewById(R.id.indicator);
-        moviesRv = view.findViewById(R.id.Rv_movies);
-        moviesfiltrated = view.findViewById(R.id.Rv_movies_filtrates);
-        firstMovies = view.findViewById(R.id.first_filtration);
-        secondMovies = view.findViewById(R.id.second_filtration);
+        TabLayout indicator = view.findViewById(R.id.indicator);
+        RecyclerView moviesRv = view.findViewById(R.id.Rv_movies);
+        RecyclerView moviesfiltrated = view.findViewById(R.id.Rv_movies_filtrates);
+        TextView firstMovies = view.findViewById(R.id.first_filtration);
+        TextView secondMovies = view.findViewById(R.id.second_filtration);
         firstMovies.setTypeface(font);
         secondMovies.setTypeface(font);
 
@@ -114,14 +109,11 @@ public class HomeFragment extends Fragment {
         @Override
         public void run() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && getActivity() != null) {
-                Objects.requireNonNull(getActivity()).runOnUiThread(new Runnable() {
-                    @Override
-                    public void run() {
-                        if (sliderPager.getCurrentItem() < slideList.size() - 1) {
-                            sliderPager.setCurrentItem(sliderPager.getCurrentItem() + 1);
-                        } else {
-                            sliderPager.setCurrentItem(0);
-                        }
+                Objects.requireNonNull(getActivity()).runOnUiThread(() -> {
+                    if (sliderPager.getCurrentItem() < slideList.size() - 1) {
+                        sliderPager.setCurrentItem(sliderPager.getCurrentItem() + 1);
+                    } else {
+                        sliderPager.setCurrentItem(0);
                     }
                 });
             }

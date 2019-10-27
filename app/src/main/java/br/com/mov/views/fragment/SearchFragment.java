@@ -24,7 +24,6 @@ import br.com.mov.views.recyclerview.adapter.MovieAdapter;
 public class SearchFragment extends Fragment {
 
     private MovieAdapter adapter;
-    private RecyclerView movieList;
 
     @Nullable
     @Override
@@ -32,7 +31,7 @@ public class SearchFragment extends Fragment {
         View view = inflater.inflate(R.layout.fragment_search_layout, container, false);
         getActivity().setTitle("Search");
 
-        movieList = view.findViewById(R.id.Rv_search);
+        RecyclerView movieList = view.findViewById(R.id.Rv_search);
 
         List<Movie> movies = new ArrayList<>();
         movies.add(new Movie("Moana", R.drawable.moana));

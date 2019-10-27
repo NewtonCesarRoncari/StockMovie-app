@@ -8,6 +8,7 @@ public class Slide {
         this.image = image;
     }
 
+    //regionGetters and Setters
     public int getImage() {
         return image;
     }
@@ -15,4 +16,5 @@ public class Slide {
     public void setImage(int image) {
         this.image = image;
     }
+    //endregion
 }

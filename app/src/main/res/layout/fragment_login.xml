@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@color/colorBlackAbsolute">
+
+    <androidx.constraintlayout.widget.ConstraintLayout
+        android:id="@+id/constraintLayout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:alpha="0.2"
+        android:background="@drawable/background_login"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+    </androidx.constraintlayout.widget.ConstraintLayout>
+
+    <TextView
+        android:id="@+id/fragment_login_logo"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stock Movie"
+        android:textColor="@color/colorWhite"
+        android:textSize="25sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent" />
+
+    <ImageView
+        android:id="@+id/fragment_login_img"
+        android:layout_width="296dp"
+        android:layout_height="249dp"
+        android:contentDescription="Logo"
+        android:src="@drawable/logo_no_background"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/fragment_login_msg"
+        android:layout_width="322dp"
+        android:layout_height="74dp"
+        android:layout_marginStart="16dp"
+        android:layout_marginLeft="16dp"
+        android:layout_marginEnd="16dp"
+        android:layout_marginRight="16dp"
+        android:text="Quer fazer uma aposta no próximo
+mega blockbuster? Bem, um mercado
+de futuros de filmes é aqui!"
+        android:textAlignment="center"
+        android:textColor="@color/colorMsg"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="@+id/constraintLayout"
+        app:layout_constraintVertical_bias="0.65" />
+
+    <Button
+        android:id="@+id/fragment_login_count_btn"
+        android:layout_width="307dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="8dp"
+        android:background="@drawable/shape_button_count"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Criar Conta"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/constraintLayout"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_login_msg"
+        app:layout_constraintVertical_bias="0.26" />
+
+    <Button
+        android:id="@+id/fragment_login_btn"
+        android:layout_width="307dp"
+        android:layout_height="56dp"
+        android:layout_marginBottom="8dp"
+        android:alpha="0.1"
+        android:background="@drawable/shape_button_count"
+        android:backgroundTint="@color/colorWhite"
+        android:clickable="true"
+        android:focusable="true"
+        android:shadowColor="#A8A8A8"
+        android:shadowDx="0"
+        android:shadowDy="0"
+        android:shadowRadius="5"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_login_count_btn"
+        app:layout_constraintStart_toStartOf="@+id/fragment_login_count_btn"
+        app:layout_constraintTop_toBottomOf="@+id/fragment_login_msg"
+        app:layout_constraintVertical_bias="0.78" />
+
+    <TextView
+        android:id="@+id/textView3"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Login"
+        android:textColor="@color/colorWhite"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_login_btn"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_login_btn"
+        app:layout_constraintStart_toStartOf="@+id/fragment_login_btn"
+        app:layout_constraintTop_toTopOf="@+id/fragment_login_btn" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

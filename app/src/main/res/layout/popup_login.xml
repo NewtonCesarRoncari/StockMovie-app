@@ -1,0 +1,135 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent"
+    android:layout_height="400dp"
+    android:layout_gravity="bottom"
+    android:background="@drawable/shape_popup_login"
+    android:orientation="vertical"
+    android:padding="5dp"
+    android:paddingBottom="0dp">
+
+
+    <TextView
+        android:id="@+id/popup_login_welcome"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Bem vindo de volta!"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.16"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.06999999" />
+
+    <TextView
+        android:id="@+id/popup_login_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Digite seu e-mail e senha para fazer login"
+        android:textColor="@color/colorMsg"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/popup_login_welcome"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/popup_login_welcome"
+        app:layout_constraintTop_toBottomOf="@+id/popup_login_welcome"
+        app:layout_constraintVertical_bias="0.01999998" />
+
+    <com.google.android.material.textfield.TextInputLayout
+    android:id="@+id/popup_login_email_InputLayout"
+    style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+    android:layout_width="0dp"
+    android:layout_height="wrap_content"
+    android:layout_marginStart="16dp"
+    android:layout_marginTop="16dp"
+    android:layout_marginEnd="16dp"
+    android:textColorHint="@color/colorWhite"
+    android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+    app:boxBackgroundColor="@color/colorBlackAbsolute"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+    app:layout_constraintTop_toBottomOf="@id/popup_login_msg">
+
+    <com.google.android.material.textfield.TextInputEditText
+        android:id="@+id/popup_login_email_InputEditText"
+        android:layout_width="match_parent"
+        android:layout_height="70dp"
+        android:drawableStart="@drawable/ic_email"
+        android:drawableLeft="@drawable/ic_email"
+        android:hint="    EMAIL"
+        android:inputType="textEmailAddress"
+        android:textColor="@color/colorMsg"/>
+</com.google.android.material.textfield.TextInputLayout>
+
+    <com.google.android.material.textfield.TextInputLayout
+        android:id="@+id/popup_login_password_InputLayout"
+        style="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:textColorHint="@color/colorWhite"
+        android:theme="@style/Widget.MaterialComponents.TextInputLayout.OutlinedBox.Dense"
+        app:boxBackgroundColor="@color/colorBlackAbsolute"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/popup_login_email_InputLayout"
+        app:layout_constraintStart_toStartOf="@+id/popup_login_email_InputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/popup_login_email_InputLayout"
+        app:layout_constraintVertical_bias="0.060000002">
+
+        <com.google.android.material.textfield.TextInputEditText
+            android:id="@+id/popup_login_password_InputEditText"
+            android:layout_width="match_parent"
+            android:layout_height="70dp"
+            android:drawableStart="@drawable/ic_key"
+            android:drawableLeft="@drawable/ic_key"
+            android:hint="    SENHA"
+            android:inputType="textPassword"
+            android:textColor="@color/colorMsg" />
+    </com.google.android.material.textfield.TextInputLayout>
+
+    <Button
+        android:id="@+id/popup_login_login_btn"
+        android:layout_width="250dp"
+        android:layout_height="56dp"
+        android:background="@drawable/shape_button_count"
+        android:clickable="true"
+        android:focusable="true"
+        android:text="Entrar"
+        android:textColor="#FFFFFF"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="@+id/popup_login_password_InputLayout"
+        app:layout_constraintStart_toStartOf="@+id/popup_login_password_InputLayout"
+        app:layout_constraintTop_toBottomOf="@+id/popup_login_password_InputLayout"
+        app:layout_constraintVertical_bias="0.32" />
+
+    <TextView
+        android:id="@+id/popup_login_msg2"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Novo por aqui?"
+        android:textColor="@color/colorMsg"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.32"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/popup_login_login_btn"
+        app:layout_constraintVertical_bias="0.39" />
+
+    <TextView
+        android:id="@+id/popup_login_new_count"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Criar Conta"
+        android:textColor="@color/colorAccent"
+        android:textSize="15sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.08"
+        app:layout_constraintStart_toEndOf="@+id/popup_login_msg2"
+        app:layout_constraintTop_toBottomOf="@+id/popup_login_login_btn"
+        app:layout_constraintVertical_bias="0.39" />
+
+</androidx.constraintlayout.widget.ConstraintLayout>

@@ -23,6 +23,8 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
     private Context context;
     private List<Movie> movies;
     private List<Movie> movieListFull;
+
+    //regionFilter
     private Filter filter = new Filter() {
         @Override
         protected FilterResults performFiltering(CharSequence constraint) {
@@ -54,6 +56,12 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
         }
     };
 
+    @Override
+    public Filter getFilter() {
+        return filter;
+    }
+    //endregion
+
     public MovieAdapter(Context context, List<Movie> movies) {
         this.context = context;
         this.movies = movies;
@@ -81,15 +89,9 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
         return movies.size();
     }
 
-    @Override
-    public Filter getFilter() {
-        return filter;
-    }
-
     class MyViewHolder extends RecyclerView.ViewHolder {
 
         private TextView movieTitle;
-
         private ImageView movieImg;
 
         MyViewHolder(@NonNull View itemView) {
@@ -97,7 +99,6 @@ public class MovieAdapter extends RecyclerView.Adapter<MovieAdapter.MyViewHolder
 
             movieTitle = itemView.findViewById(R.id.item_movie_title);
             movieImg = itemView.findViewById(R.id.item_movie_img);
-
         }
     }
 }
