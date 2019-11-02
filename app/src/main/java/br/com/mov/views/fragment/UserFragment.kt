@@ -14,7 +14,7 @@ class UserFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_user, container, false)
-        activity!!.title = "User"
+        activity?.title = "User"
 
         val tabsAdapter = TabsAdapter(activity!!.supportFragmentManager)
         val viewPager = view.findViewById<ViewPager>(R.id.fragment_user_view_pager)

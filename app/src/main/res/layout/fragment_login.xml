@@ -13,23 +13,9 @@
         android:background="@drawable/background_login"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent">
     </androidx.constraintlayout.widget.ConstraintLayout>
-
-    <TextView
-        android:id="@+id/fragment_login_logo"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:text="Stock Movie"
-        android:textColor="@color/colorWhite"
-        android:textSize="20sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.58000004" />
 
     <ImageView
         android:id="@+id/fragment_login_img"
@@ -42,6 +28,19 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.0" />
+
+    <TextView
+        android:id="@+id/fragment_login_logo_msg"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:text="Stock Movie"
+        android:textColor="@color/colorWhite"
+        android:textSize="20sp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.58000004" />
 
     <TextView
         android:id="@+id/fragment_login_msg"
@@ -102,7 +101,7 @@ de futuros de filmes é aqui!"
         app:layout_constraintVertical_bias="0.39" />
 
     <TextView
-        android:id="@+id/textView3"
+        android:id="@+id/fragment_login_text_login"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:text="Login"
@@ -112,5 +111,24 @@ de futuros de filmes é aqui!"
         app:layout_constraintEnd_toEndOf="@+id/fragment_login_btn"
         app:layout_constraintStart_toStartOf="@+id/fragment_login_btn"
         app:layout_constraintTop_toTopOf="@+id/fragment_login_btn" />
+
+    <FrameLayout
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="false"/>
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

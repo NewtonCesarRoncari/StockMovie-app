@@ -13,7 +13,7 @@
 
 
         <androidx.viewpager.widget.ViewPager
-            android:id="@+id/view_pager"
+            android:id="@+id/slider_pager"
             android:layout_width="0dp"
             android:layout_height="230dp"
             app:layout_constraintEnd_toEndOf="parent"
@@ -26,7 +26,7 @@
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@id/view_pager"
+            app:layout_constraintTop_toBottomOf="@id/slider_pager"
             app:tabBackground="@drawable/indicator_selector"
             app:tabGravity="center"
             app:tabIndicatorHeight="0dp">
@@ -34,7 +34,7 @@
         </com.google.android.material.tabs.TabLayout>
 
         <TextView
-            android:id="@+id/first_filtration"
+            android:id="@+id/first_msg_movies"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -50,7 +50,7 @@
             app:layout_constraintTop_toBottomOf="@+id/indicator" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/Rv_movies"
+            android:id="@+id/rv_movies"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -62,11 +62,11 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/first_filtration"
+            app:layout_constraintTop_toBottomOf="@+id/first_msg_movies"
             tools:listitem="@layout/item_movie" />
 
         <TextView
-            android:id="@+id/second_filtration"
+            android:id="@+id/second_msg_movies"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -80,10 +80,10 @@
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintHorizontal_bias="0.09"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/Rv_movies" />
+            app:layout_constraintTop_toBottomOf="@+id/rv_movies" />
 
         <androidx.recyclerview.widget.RecyclerView
-            android:id="@+id/Rv_movies_filtrates"
+            android:id="@+id/rv_movies_filtrates"
             android:layout_width="0dp"
             android:layout_height="wrap_content"
             android:layout_marginStart="16dp"
@@ -95,7 +95,7 @@
             app:layoutManager="androidx.recyclerview.widget.LinearLayoutManager"
             app:layout_constraintEnd_toEndOf="parent"
             app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toBottomOf="@+id/second_filtration"
+            app:layout_constraintTop_toBottomOf="@+id/second_msg_movies"
             tools:listitem="@layout/item_movie" />
 
     </androidx.constraintlayout.widget.ConstraintLayout>

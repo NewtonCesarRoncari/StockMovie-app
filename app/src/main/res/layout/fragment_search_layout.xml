@@ -7,7 +7,7 @@
     android:background="@color/colorPrimary">
 
     <androidx.recyclerview.widget.RecyclerView
-        android:id="@+id/Rv_search"
+        android:id="@+id/rv_search"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"

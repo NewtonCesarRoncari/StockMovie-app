@@ -24,9 +24,7 @@ class SlidePagerAdapter(private val context: Context, private val slides: List<S
         return slideLayout
     }
 
-    override fun getCount(): Int {
-        return slides.size
-    }
+    override fun getCount() = slides.size
 
     override fun isViewFromObject(view: View, `object`: Any): Boolean {
         return view === `object`

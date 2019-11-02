@@ -11,18 +11,18 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.mov.R
 import br.com.mov.models.Movie
-import java.util.*
 
-class MovieAdapter
+class MovieAdapter(
+        private val context: Context,
+        private var movies: MutableList<Movie> = mutableListOf()
+) : RecyclerView.Adapter<MovieAdapter.MyViewHolder>(), Filterable {
 
-(private val context: Context, private val movies: MutableList<Movie>)
-    : RecyclerView.Adapter<MovieAdapter.MyViewHolder>(), Filterable {
-    private var movieListFull: List<Movie> = arrayListOf()
+    private var movieListFull: MutableList<Movie> = mutableListOf()
 
     //regionFilter
     private val filter = object : Filter() {
         override fun performFiltering(constraint: CharSequence?): FilterResults {
-            val filteredList = ArrayList<Movie>()
+            val filteredList: MutableList<Movie> = mutableListOf()
 
             if (constraint == null || constraint.isEmpty()) {
                 filteredList.addAll(movieListFull)
@@ -44,8 +44,11 @@ class MovieAdapter
 
         override fun publishResults(constraint: CharSequence, results: FilterResults) {
             movies.clear()
-            movies.addAll(results.values as Collection<Movie>)
-            notifyDataSetChanged()
+            if (results.values is List<*>){
+                val movieList = (results.values as List<*>).filterIsInstance<Movie>()
+                movies.addAll(movieList)
+                notifyDataSetChanged()
+            }
         }
     }
 
@@ -67,11 +70,11 @@ class MovieAdapter
 
     }
 
-    override fun getItemCount(): Int {
-        return movies.size
-    }
+    override fun getItemCount() = movies.size
 
-    inner class MyViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView) {
+
+    inner class MyViewHolder(itemView: View) :
+            RecyclerView.ViewHolder(itemView) {
 
         val movieTitle: TextView = itemView.findViewById(R.id.item_movie_title)
         val movieImg: ImageView = itemView.findViewById(R.id.item_movie_img)
