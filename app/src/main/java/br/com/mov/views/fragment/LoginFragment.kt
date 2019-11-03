@@ -16,13 +16,14 @@ import android.widget.Button
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
-import androidx.navigation.NavController
-import androidx.navigation.fragment.NavHostFragment
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import br.com.mov.R
+import br.com.mov.views.viewmodel.LoginViewModel
 import br.com.mov.views.viewmodel.StateAppViewModel
 import br.com.mov.views.viewmodel.VisualComponents
 import kotlinx.android.synthetic.main.fragment_login.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 
 class LoginFragment : Fragment() {
 
@@ -34,26 +35,26 @@ class LoginFragment : Fragment() {
     private lateinit var msg2: TextView
     private lateinit var toggleMsg: TextView
     private lateinit var positiveButton: Button
-    private val viewModel: StateAppViewModel by sharedViewModel()
-
-    private lateinit var navController : NavController
+    private val appViewModel: StateAppViewModel by sharedViewModel()
+    private val loginViewModel: LoginViewModel by viewModel()
+    private val navController by lazy { findNavController(this) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_login, container, false)
         (activity as AppCompatActivity).supportActionBar!!.hide()
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
-            activity!!.window.statusBarColor = Color.BLACK
+            requireActivity().window.statusBarColor = Color.BLACK
         }
+
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.havCoponent = VisualComponents()
+        appViewModel.havCoponent = VisualComponents()
 
         fontSemiBold = Typeface.createFromAsset(activity!!.assets, "fonts/OpenSans-Semibold.ttf")
         fontRegular = Typeface.createFromAsset(activity!!.assets, "fonts/OpenSans-Regular.ttf")
-        navController = NavHostFragment.findNavController(this)
         animation.visibility = INVISIBLE
 
         popup = Dialog(context!!)
@@ -97,28 +98,29 @@ class LoginFragment : Fragment() {
             animation.visibility = VISIBLE
             animation.setAnimation("anim/logo_animated.json")
             animation.playAnimation()
-            animation.addAnimatorListener(object: Animator.AnimatorListener {
-                override fun onAnimationStart(animation:Animator) {
+            animation.addAnimatorListener(object : Animator.AnimatorListener {
+                override fun onAnimationStart(animation: Animator) {
                     Log.e("Animation:", "start")
                     hiddenFields()
                 }
-                override fun onAnimationEnd(animation:Animator) {
-                    try
-                    {
-                        navController.navigate(R.id.action_loginFragment_to_homeFragment)
-                    }
-                    catch (ex:Exception) {
+
+                override fun onAnimationEnd(animation: Animator) {
+                    try {
+                        loginViewModel.login()
+                        goToHomeFragment()
+                    } catch (ex: Exception) {
                         ex.toString()
                     }
                 }
-                override fun onAnimationCancel(animation:Animator) {
+
+                override fun onAnimationCancel(animation: Animator) {
                     Log.e("Animation:", "cancel")
                 }
-                override fun onAnimationRepeat(animation:Animator) {
+
+                override fun onAnimationRepeat(animation: Animator) {
                     Log.e("Animation:", "repeat")
                 }
             })
-//            navController.navigate(R.id.action_loginFragment_to_homeFragment)
         }
         toggleMsg.setOnClickListener {
             popup.dismiss()
@@ -146,9 +148,16 @@ class LoginFragment : Fragment() {
     }
     //endregion
 
+    private fun goToHomeFragment() {
+        val direction = LoginFragmentDirections
+                .actionLoginFragmentToHomeFragment()
+        navController.navigate(direction)
+    }
+
     private fun setFonts() {
         msgWelcome.typeface = fontSemiBold
         msg.typeface = fontRegular
         msg2.typeface = fontRegular
     }
+
 }

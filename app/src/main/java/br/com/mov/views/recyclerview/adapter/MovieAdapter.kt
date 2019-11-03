@@ -11,13 +11,14 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.mov.R
 import br.com.mov.models.Movie
+import java.util.*
 
 class MovieAdapter(
         private val context: Context,
         private var movies: MutableList<Movie> = mutableListOf()
 ) : RecyclerView.Adapter<MovieAdapter.MyViewHolder>(), Filterable {
 
-    private var movieListFull: MutableList<Movie> = mutableListOf()
+    private var movieListFull = movies
 
     //regionFilter
     private val filter = object : Filter() {
@@ -27,10 +28,10 @@ class MovieAdapter(
             if (constraint == null || constraint.isEmpty()) {
                 filteredList.addAll(movieListFull)
             } else {
-                val filterPattern = constraint.toString().toLowerCase().trim { it <= ' ' }
+                val filterPattern = constraint.toString().toLowerCase(Locale.getDefault()).trim()
 
                 for (movie in movieListFull) {
-                    if (movie.title.toLowerCase().contains(filterPattern)) {
+                    if (movie.title.toLowerCase(Locale.getDefault()).contains(filterPattern)) {
                         filteredList.add(movie)
                     }
                 }
@@ -38,17 +39,15 @@ class MovieAdapter(
 
             val results = FilterResults()
             results.values = filteredList
+            results.count = filteredList.size
 
             return results
         }
 
         override fun publishResults(constraint: CharSequence, results: FilterResults) {
             movies.clear()
-            if (results.values is List<*>){
-                val movieList = (results.values as List<*>).filterIsInstance<Movie>()
-                movies.addAll(movieList)
-                notifyDataSetChanged()
-            }
+            movies = (results.values as List<*>).filterIsInstance<Movie>() as MutableList<Movie>
+            notifyDataSetChanged()
         }
     }
 
@@ -71,7 +70,6 @@ class MovieAdapter(
     }
 
     override fun getItemCount() = movies.size
-
 
     inner class MyViewHolder(itemView: View) :
             RecyclerView.ViewHolder(itemView) {

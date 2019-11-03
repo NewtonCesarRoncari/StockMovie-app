@@ -14,10 +14,7 @@ class SearchFragment : Fragment() {
     private var adapter: MovieAdapter? = null
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
-        val view = inflater.inflate(R.layout.fragment_search_layout, container, false)
-        activity?.title = "Search"
-
-        return view
+        return inflater.inflate(R.layout.fragment_search_layout, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -57,7 +54,7 @@ class SearchFragment : Fragment() {
 
             override fun onQueryTextChange(newText: String): Boolean {
                 if (adapter != null)
-                    adapter!!.filter.filter(newText)
+                    adapter?.filter?.filter(newText)
                 return false
             }
         })

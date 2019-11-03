@@ -12,7 +12,7 @@ class TabsAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
     override fun getItem(position: Int): Fragment {
         return if (position == 0) {
             WalletFragment()
-        } else{
+        } else {
             UserDataFragment()
         }
     }

@@ -6,37 +6,52 @@ import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentActivity
+import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.mov.R
 import br.com.mov.models.Movie
 import br.com.mov.models.Slide
 import br.com.mov.views.recyclerview.adapter.MovieAdapter
 import br.com.mov.views.slidepager.adapter.SlidePagerAdapter
+import br.com.mov.views.viewmodel.LoginViewModel
 import br.com.mov.views.viewmodel.StateAppViewModel
 import br.com.mov.views.viewmodel.VisualComponents
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
+import org.koin.android.viewmodel.ext.android.viewModel
 import java.util.*
 
 class HomeFragment : Fragment() {
 
     private lateinit var slideList: ArrayList<Slide>
-    private val viewModel: StateAppViewModel by sharedViewModel()
+    private val appViewModel: StateAppViewModel by sharedViewModel()
+    private val loginViewModel: LoginViewModel by viewModel()
+    private val navController by lazy { findNavController(this) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
-        (activity as AppCompatActivity).supportActionBar!!.show()
-        activity?.title = "Sotck Movie"
 
+        checkStateLogin()
         return view
+    }
+
+    private fun checkStateLogin() {
+        if (!loginViewModel.isLogged()) {
+            goToLoginFragment()
+        }
+    }
+
+    private fun goToLoginFragment() {
+        val direction = HomeFragmentDirections
+                .actionHomeFragmentToLoginFragment()
+        navController.navigate(direction)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        viewModel.havCoponent = VisualComponents(true)
+        appViewModel.havCoponent = VisualComponents(true)
 
         val font = Typeface.createFromAsset(activity!!.assets, "fonts/OpenSans-Semibold.ttf")
 
@@ -100,7 +115,7 @@ class HomeFragment : Fragment() {
     internal inner class SliderTimer : TimerTask() {
 
         override fun run() {
-            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && activity != null) {
+            if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && activity != null && slider_pager != null) {
                 Objects.requireNonNull<FragmentActivity>(activity).runOnUiThread {
                     if (slider_pager.currentItem < slideList.size - 1) {
                         slider_pager.currentItem = slider_pager.currentItem + 1
