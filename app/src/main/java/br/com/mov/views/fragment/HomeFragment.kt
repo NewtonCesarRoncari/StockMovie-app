@@ -11,6 +11,8 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.mov.R
+import br.com.mov.extensions.getMovieResources
+import br.com.mov.extensions.getMoviesFiltratesResource
 import br.com.mov.models.Movie
 import br.com.mov.models.Slide
 import br.com.mov.views.recyclerview.adapter.MovieAdapter
@@ -74,38 +76,8 @@ class HomeFragment : Fragment() {
 
         indicator.setupWithViewPager(slider_pager, true)
 
-        val movies = arrayListOf(
-                Movie("Moana", R.drawable.moana),
-                Movie("Black P", R.drawable.blackp),
-                Movie("Perdido em Marte", R.drawable.themartian),
-                Movie("Moana", R.drawable.moana),
-                Movie("Black P", R.drawable.blackp),
-                Movie("Perdido em Marte", R.drawable.themartian),
-                Movie("Moana", R.drawable.moana),
-                Movie("Black P", R.drawable.blackp),
-                Movie("Perdido em Marte", R.drawable.themartian),
-                Movie("Moana", R.drawable.moana),
-                Movie("Black P", R.drawable.blackp),
-                Movie("Perdido em Marte", R.drawable.themartian)
-
-        )
-        val moviesFitrates = arrayListOf(
-                Movie("Black P", R.drawable.blackp),
-                Movie("Black P", R.drawable.blackp),
-                Movie("Black P", R.drawable.blackp),
-                Movie("Black P", R.drawable.blackp),
-                Movie("Moana", R.drawable.moana),
-                Movie("Moana", R.drawable.moana),
-                Movie("Moana", R.drawable.moana),
-                Movie("Moana", R.drawable.moana),
-                Movie("Perdido em Marte", R.drawable.themartian),
-                Movie("Perdido em Marte", R.drawable.themartian),
-                Movie("Perdido em Marte", R.drawable.themartian),
-                Movie("Perdido em Marte", R.drawable.themartian)
-        )
-
-        val movieAdapter = context?.let { MovieAdapter(it, movies) }
-        val movieAdapter1 = context?.let { MovieAdapter(it, moviesFitrates) }
+        val movieAdapter = context?.let { MovieAdapter(it, Movie("", "").getMovieResources()) }
+        val movieAdapter1 = context?.let { MovieAdapter(it, Movie("", "").getMoviesFiltratesResource()) }
         rv_movies_filtrates.adapter = movieAdapter1
         rv_movies.adapter = movieAdapter
         rv_movies_filtrates.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)

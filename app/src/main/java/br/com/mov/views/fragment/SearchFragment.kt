@@ -5,6 +5,7 @@ import android.view.*
 import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import br.com.mov.R
+import br.com.mov.extensions.getMovieResources
 import br.com.mov.models.Movie
 import br.com.mov.views.recyclerview.adapter.MovieAdapter
 import kotlinx.android.synthetic.main.fragment_search_layout.*
@@ -20,22 +21,7 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        val movies = arrayListOf(
-                Movie("Moana", R.drawable.moana),
-                Movie("Black P", R.drawable.blackp),
-                Movie("The Martian", R.drawable.themartian),
-                Movie("Moana", R.drawable.moana),
-                Movie("Black P", R.drawable.blackp),
-                Movie("The Martian", R.drawable.themartian),
-                Movie("Moana", R.drawable.moana),
-                Movie("Black P", R.drawable.blackp),
-                Movie("The Martian", R.drawable.themartian),
-                Movie("Moana", R.drawable.moana),
-                Movie("Black P", R.drawable.blackp),
-                Movie("The Martian", R.drawable.themartian)
-        )
-
-        this.adapter = context?.let { MovieAdapter(it, movies) }
+        this.adapter = context?.let { MovieAdapter(it, Movie("", "").getMovieResources()) }
         rv_search.adapter = adapter
 
         setHasOptionsMenu(true)

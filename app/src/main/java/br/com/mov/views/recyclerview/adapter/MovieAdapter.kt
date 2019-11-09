@@ -10,15 +10,16 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.mov.R
+import br.com.mov.extensions.loadThumbnail
 import br.com.mov.models.Movie
 import java.util.*
 
 class MovieAdapter(
         private val context: Context,
-        private var movies: MutableList<Movie> = mutableListOf()
+        private var movies: List<Movie>
 ) : RecyclerView.Adapter<MovieAdapter.MyViewHolder>(), Filterable {
 
-    private var movieListFull = movies
+    private var movieListFull: List<Movie> = movies.toList()
 
     //regionFilter
     private val filter = object : Filter() {
@@ -45,7 +46,6 @@ class MovieAdapter(
         }
 
         override fun publishResults(constraint: CharSequence, results: FilterResults) {
-            movies.clear()
             movies = (results.values as List<*>).filterIsInstance<Movie>() as MutableList<Movie>
             notifyDataSetChanged()
         }
@@ -65,7 +65,7 @@ class MovieAdapter(
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
         holder.movieTitle.text = movies[position].title
-        holder.movieImg.setImageResource(movies[position].thumbnail)
+        holder.movieImg.loadThumbnail(movies[position].thumbnail)
 
     }
 

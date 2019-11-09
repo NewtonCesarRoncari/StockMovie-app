@@ -9,6 +9,7 @@ import br.com.mov.R
 import br.com.mov.views.tabs.adapter.TabsAdapter
 import br.com.mov.views.viewmodel.LoginViewModel
 import com.google.android.material.tabs.TabLayout
+import kotlinx.android.synthetic.main.fragment_user.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class UserFragment : Fragment() {
@@ -27,6 +28,7 @@ class UserFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        fragment_user_image.setImageResource(R.drawable.user_image)
         val tabsAdapter = TabsAdapter(activity!!.supportFragmentManager)
         val viewPager = view.findViewById<ViewPager>(R.id.fragment_user_view_pager)
         viewPager.adapter = tabsAdapter

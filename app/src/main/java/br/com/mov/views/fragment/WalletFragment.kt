@@ -12,6 +12,6 @@ class WalletFragment : Fragment() {
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
 
-        return inflater.inflate(R.layout.fragment_wallet, container, false)
+        return inflater.inflate(R.layout.fragment_user_wallet, container, false)
     }
 }
