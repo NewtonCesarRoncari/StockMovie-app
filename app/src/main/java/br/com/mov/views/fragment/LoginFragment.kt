@@ -18,10 +18,13 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import br.com.mov.R
+import br.com.mov.models.User
 import br.com.mov.views.viewmodel.LoginViewModel
 import br.com.mov.views.viewmodel.StateAppViewModel
+import br.com.mov.views.viewmodel.UserViewModel
 import br.com.mov.views.viewmodel.VisualComponents
 import kotlinx.android.synthetic.main.fragment_login.*
+import kotlinx.android.synthetic.main.popup_count.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
@@ -36,6 +39,7 @@ class LoginFragment : Fragment() {
     private lateinit var toggleMsg: TextView
     private lateinit var positiveButton: Button
     private val appViewModel: StateAppViewModel by sharedViewModel()
+    private val userViewModel: UserViewModel by viewModel()
     private val loginViewModel: LoginViewModel by viewModel()
     private val navController by lazy { findNavController(this) }
 
@@ -72,6 +76,13 @@ class LoginFragment : Fragment() {
         popup.setContentView(R.layout.popup_count)
         initFieldsCountPopup()
         setFonts()
+        positiveButton.setOnClickListener {
+            val user = User(
+                    popup.popup_count_name_InputEditText.text.toString(),
+                    popup.popup_count_email_InputEditText.text.toString(),
+                    popup.popup_count_password_InputEditText.text.toString())
+            userViewModel.postUser(user)
+        }
         toggleMsg.setOnClickListener {
             popup.dismiss()
             showLoginPopup()
@@ -81,6 +92,7 @@ class LoginFragment : Fragment() {
     }
 
     private fun initFieldsCountPopup() {
+        positiveButton = popup.findViewById(R.id.popup_count_new_count_btn)
         toggleMsg = popup.findViewById(R.id.popup_count_new_login)
         msgWelcome = popup.findViewById(R.id.popup_count_welcome)
         msg = popup.findViewById(R.id.popup_count_msg)

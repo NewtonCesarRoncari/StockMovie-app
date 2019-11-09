@@ -55,7 +55,7 @@
         app:layout_constraintVertical_bias="0.0">
 
         <com.google.android.material.textfield.TextInputEditText
-            android:id="@+id/popup_login_name_InputEditText"
+            android:id="@+id/popup_count_name_InputEditText"
             android:layout_width="match_parent"
             android:layout_height="70dp"
             android:drawableStart="@drawable/ic_person_green"
@@ -117,7 +117,7 @@
     </com.google.android.material.textfield.TextInputLayout>
 
     <Button
-        android:id="@+id/popup_count_count_btn"
+        android:id="@+id/popup_count_new_count_btn"
         android:layout_width="250dp"
         android:layout_height="56dp"
         android:background="@drawable/shape_button_count"
@@ -143,7 +143,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.4"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/popup_count_count_btn"
+        app:layout_constraintTop_toBottomOf="@+id/popup_count_new_count_btn"
         app:layout_constraintVertical_bias="0.39" />
 
     <TextView
@@ -157,7 +157,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.08"
         app:layout_constraintStart_toEndOf="@+id/popup_count_msg2"
-        app:layout_constraintTop_toBottomOf="@+id/popup_count_count_btn"
+        app:layout_constraintTop_toBottomOf="@+id/popup_count_new_count_btn"
         app:layout_constraintVertical_bias="0.39" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>
