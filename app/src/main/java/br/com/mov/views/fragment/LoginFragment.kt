@@ -13,20 +13,21 @@ import android.view.View
 import android.view.View.*
 import android.view.ViewGroup
 import android.widget.Button
+import android.widget.ProgressBar
 import android.widget.TextView
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import br.com.mov.R
 import br.com.mov.models.User
-import br.com.mov.views.viewmodel.LoginViewModel
-import br.com.mov.views.viewmodel.StateAppViewModel
-import br.com.mov.views.viewmodel.UserViewModel
-import br.com.mov.views.viewmodel.VisualComponents
+import br.com.mov.views.viewmodel.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.popup_count.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
+
 
 class LoginFragment : Fragment() {
 
@@ -38,9 +39,11 @@ class LoginFragment : Fragment() {
     private lateinit var msg2: TextView
     private lateinit var toggleMsg: TextView
     private lateinit var positiveButton: Button
-    private val appViewModel: StateAppViewModel by sharedViewModel()
+    private lateinit var progressBar: ProgressBar
+    private val appComponentsViewModel: StateAppComponentsViewModel by sharedViewModel()
     private val userViewModel: UserViewModel by viewModel()
     private val loginViewModel: LoginViewModel by viewModel()
+    private val stateUserViewModel: StateUserViewModel by sharedViewModel()
     private val navController by lazy { findNavController(this) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -55,7 +58,7 @@ class LoginFragment : Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        appViewModel.havCoponent = VisualComponents()
+        appComponentsViewModel.havCoponent = VisualComponents()
 
         fontSemiBold = Typeface.createFromAsset(activity!!.assets, "fonts/OpenSans-Semibold.ttf")
         fontRegular = Typeface.createFromAsset(activity!!.assets, "fonts/OpenSans-Regular.ttf")
@@ -77,11 +80,10 @@ class LoginFragment : Fragment() {
         initFieldsCountPopup()
         setFonts()
         positiveButton.setOnClickListener {
-            val user = User(
-                    popup.popup_count_name_InputEditText.text.toString(),
-                    popup.popup_count_email_InputEditText.text.toString(),
-                    popup.popup_count_password_InputEditText.text.toString())
+            val user = initUser()
             userViewModel.postUser(user)
+            showProgressBar(true)
+            checkUserReturned()
         }
         toggleMsg.setOnClickListener {
             popup.dismiss()
@@ -91,8 +93,17 @@ class LoginFragment : Fragment() {
         popup.show()
     }
 
+    private fun initUser(): User {
+        return User(
+                null,
+                popup.popup_count_name_InputEditText.text.toString().trim(),
+                popup.popup_count_email_InputEditText.text.toString().trim(),
+                popup.popup_count_password_InputEditText.text.toString().trim())
+    }
+
     private fun initFieldsCountPopup() {
         positiveButton = popup.findViewById(R.id.popup_count_new_count_btn)
+        progressBar = popup.findViewById(R.id.popup_count_progressBar)
         toggleMsg = popup.findViewById(R.id.popup_count_new_login)
         msgWelcome = popup.findViewById(R.id.popup_count_welcome)
         msg = popup.findViewById(R.id.popup_count_msg)
@@ -170,6 +181,61 @@ class LoginFragment : Fragment() {
         msgWelcome.typeface = fontSemiBold
         msg.typeface = fontRegular
         msg2.typeface = fontRegular
+    }
+
+    private fun showProgressBar(show: Boolean) {
+        if (!show) {
+            this.positiveButton.text = "CRIAR CONTA"
+            this.positiveButton.isClickable = true
+            this.positiveButton.isFocusable = true
+            this.progressBar.visibility = GONE
+        } else {
+            this.positiveButton.text = ""
+            this.positiveButton.isClickable = false
+            this.positiveButton.isFocusable = false
+            this.progressBar.visibility = VISIBLE
+        }
+    }
+
+    private fun checkUserReturned() {
+        stateUserViewModel.userReturned.observe(viewLifecycleOwner, Observer {
+            it?.also { userReturned ->
+                if (!userReturned.userReturned) {
+                    showProgressBar(false)
+                    Toast.makeText(context,
+                            "campos preenchidos incorretamente", Toast.LENGTH_SHORT).show()
+                } else {
+                    showProgressBar(false)
+                    popup.dismiss()
+                    animation.visibility = VISIBLE
+                    animation.setAnimation("anim/logo_animated.json")
+                    animation.playAnimation()
+                    animation.addAnimatorListener(object : Animator.AnimatorListener {
+                        override fun onAnimationStart(animation: Animator) {
+                            Log.e("Animation:", "start")
+                            hiddenFields()
+                        }
+
+                        override fun onAnimationEnd(animation: Animator) {
+                            try {
+                                loginViewModel.login()
+                                goToHomeFragment()
+                            } catch (ex: Exception) {
+                                ex.toString()
+                            }
+                        }
+
+                        override fun onAnimationCancel(animation: Animator) {
+                            Log.e("Animation:", "cancel")
+                        }
+
+                        override fun onAnimationRepeat(animation: Animator) {
+                            Log.e("Animation:", "repeat")
+                        }
+                    })
+                }
+            }
+        })
     }
 
 }

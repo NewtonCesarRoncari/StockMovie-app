@@ -18,7 +18,7 @@ import br.com.mov.models.Slide
 import br.com.mov.views.recyclerview.adapter.MovieAdapter
 import br.com.mov.views.slidepager.adapter.SlidePagerAdapter
 import br.com.mov.views.viewmodel.LoginViewModel
-import br.com.mov.views.viewmodel.StateAppViewModel
+import br.com.mov.views.viewmodel.StateAppComponentsViewModel
 import br.com.mov.views.viewmodel.VisualComponents
 import kotlinx.android.synthetic.main.fragment_home.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
@@ -28,32 +28,21 @@ import java.util.*
 class HomeFragment : Fragment() {
 
     private lateinit var slideList: ArrayList<Slide>
-    private val appViewModel: StateAppViewModel by sharedViewModel()
+    private val appComponentsViewModel: StateAppComponentsViewModel by sharedViewModel()
     private val loginViewModel: LoginViewModel by viewModel()
     private val navController by lazy { findNavController(this) }
 
-    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
+    override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
+                              savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
         checkStateLogin()
         return view
     }
 
-    private fun checkStateLogin() {
-        if (!loginViewModel.isLogged()) {
-            goToLoginFragment()
-        }
-    }
-
-    private fun goToLoginFragment() {
-        val direction = HomeFragmentDirections
-                .actionHomeFragmentToLoginFragment()
-        navController.navigate(direction)
-    }
-
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        appViewModel.havCoponent = VisualComponents(true)
+        appComponentsViewModel.havCoponent = VisualComponents(true)
 
         val font = Typeface.createFromAsset(activity!!.assets, "fonts/OpenSans-Semibold.ttf")
 
@@ -82,6 +71,18 @@ class HomeFragment : Fragment() {
         rv_movies.adapter = movieAdapter
         rv_movies_filtrates.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         rv_movies.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+    }
+
+    private fun checkStateLogin() {
+        if (!loginViewModel.isLogged()) {
+            goToLoginFragment()
+        }
+    }
+
+    private fun goToLoginFragment() {
+        val direction = HomeFragmentDirections
+                .actionHomeFragmentToLoginFragment()
+        navController.navigate(direction)
     }
 
     internal inner class SliderTimer : TimerTask() {

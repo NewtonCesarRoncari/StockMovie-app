@@ -26,7 +26,7 @@ class MovieAdapter(
         override fun performFiltering(constraint: CharSequence?): FilterResults {
             val filteredList: MutableList<Movie> = mutableListOf()
 
-            if (constraint == null || constraint.isEmpty()) {
+            if (constraint.isNullOrEmpty()) {
                 filteredList.addAll(movieListFull)
             } else {
                 val filterPattern = constraint.toString().toLowerCase(Locale.getDefault()).trim()

@@ -8,13 +8,15 @@ import androidx.lifecycle.Observer
 import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import br.com.mov.R
-import br.com.mov.views.viewmodel.StateAppViewModel
+import br.com.mov.views.viewmodel.StateAppComponentsViewModel
+import br.com.mov.views.viewmodel.StateUserViewModel
 import kotlinx.android.synthetic.main.frame_navigation.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class NavigationActivity : AppCompatActivity() {
 
-    private val viewModel: StateAppViewModel by viewModel()
+    private val componentsViewModel: StateAppComponentsViewModel by viewModel()
+    private val stateUserViewModel: StateUserViewModel by viewModel()
     private val navController by lazy {
         findNavController(this, R.id.frame_navigation)
     }
@@ -30,13 +32,13 @@ class NavigationActivity : AppCompatActivity() {
                                                         destination,
                                                         _ ->
             title = destination.label
-            when(destination.id){
+            when (destination.id) {
                 R.id.homeFragment -> supportActionBar?.show()
                 R.id.loginFragment -> supportActionBar?.hide()
             }
         }
 
-        viewModel.components.observe(this, Observer {
+        componentsViewModel.components.observe(this, Observer {
             it?.also { havComponent ->
                 run {
                     if (havComponent.bottomNavigation) {

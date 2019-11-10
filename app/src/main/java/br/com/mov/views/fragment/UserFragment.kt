@@ -8,14 +8,17 @@ import androidx.viewpager.widget.ViewPager
 import br.com.mov.R
 import br.com.mov.views.tabs.adapter.TabsAdapter
 import br.com.mov.views.viewmodel.LoginViewModel
+import br.com.mov.views.viewmodel.StateUserViewModel
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_user.*
+import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class UserFragment : Fragment() {
 
     private val navController by lazy { findNavController(this) }
     private val loginViewModel: LoginViewModel by viewModel()
+    private val stateUserViewModel: StateUserViewModel by sharedViewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_user, container, false)
@@ -40,6 +43,7 @@ class UserFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_user_logout) {
 
+            stateUserViewModel.clearUser()
             loginViewModel.logout()
             goToLoginFragment()
         }
