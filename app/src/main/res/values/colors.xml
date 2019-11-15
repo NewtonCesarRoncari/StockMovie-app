@@ -10,4 +10,5 @@
     <color name="colorMsg">#90FFFFFF</color>
     <color name="colorBackColorLogin">#323232</color>
     <color name="colorBlue">#3F51B5</color>
+    <color name="colorYellow">#FFEB3B</color>
 </resources>

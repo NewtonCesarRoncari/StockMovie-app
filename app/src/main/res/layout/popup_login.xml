@@ -4,7 +4,7 @@
     android:layout_width="match_parent"
     android:layout_height="400dp"
     android:layout_gravity="bottom"
-    android:background="@drawable/shape_popup_login"
+    android:background="@drawable/shape_popup"
     android:orientation="vertical"
     android:padding="5dp"
     android:paddingBottom="0dp">

@@ -1,24 +1,16 @@
 package br.com.mov.models
 
-import br.com.mov.models.dtos.UserRequest
-import com.fasterxml.jackson.annotation.JsonIgnore
+import br.com.mov.models.dto.UserRequest
 
-class User(@JsonIgnore
-           val id: Long? = null,
+class User(val id: Long? = null,
            val name: String = "",
            val email: String = "",
-           val password: String = "",
-           @JsonIgnore
-           val wallet: List<Position> = arrayListOf(),
-           @JsonIgnore
-           val buyOrders: List<BuyOrder> = arrayListOf()) {
+           val password: String = "") {
 
     constructor(user: UserRequest) : this(
             id = user.id,
             name = user.name,
-            email = user.email,
-            wallet = user.wallet,
-            buyOrders = user.buyOrders
+            email = user.email
     )
 }
 

@@ -37,12 +37,12 @@ class HomeFragment : Fragment() {
         val view = inflater.inflate(R.layout.fragment_home, container, false)
 
         checkStateLogin()
+        appComponentsViewModel.havCoponent = VisualComponents(true)
         return view
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
-        appComponentsViewModel.havCoponent = VisualComponents(true)
 
         val font = Typeface.createFromAsset(activity!!.assets, "fonts/OpenSans-Semibold.ttf")
 
@@ -71,6 +71,12 @@ class HomeFragment : Fragment() {
         rv_movies.adapter = movieAdapter
         rv_movies_filtrates.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
         rv_movies.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
+        movieAdapter!!.onItemCliclListener = {
+            goToMovieDetailFragment()
+        }
+        movieAdapter1!!.onItemCliclListener = {
+            goToMovieDetailFragment()
+        }
     }
 
     private fun checkStateLogin() {
@@ -85,12 +91,16 @@ class HomeFragment : Fragment() {
         navController.navigate(direction)
     }
 
+    private fun goToMovieDetailFragment() {
+        navController.navigate(R.id.action_homeFragment_to_movieDetailFragment)
+    }
+
     internal inner class SliderTimer : TimerTask() {
 
         override fun run() {
             if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.KITKAT && activity != null && slider_pager != null) {
                 Objects.requireNonNull<FragmentActivity>(activity).runOnUiThread {
-                    if (slider_pager.currentItem < slideList.size - 1) {
+                    if (slider_pager.currentItem < slideList.size - 1 && slider_pager != null) {
                         slider_pager.currentItem = slider_pager.currentItem + 1
                     } else {
                         slider_pager.currentItem = 0

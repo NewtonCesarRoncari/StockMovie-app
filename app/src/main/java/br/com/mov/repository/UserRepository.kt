@@ -3,6 +3,8 @@ package br.com.mov.repository
 import android.util.Log
 import androidx.lifecycle.MutableLiveData
 import br.com.mov.models.User
+import br.com.mov.models.constant.UserSituation
+import br.com.mov.models.dto.UserRequest
 import br.com.mov.retrofit.callback.CallbackWithReturn
 import br.com.mov.retrofit.service.UserService
 import br.com.mov.views.viewmodel.UserReturned
@@ -25,21 +27,21 @@ class UserRepository(
         }
 
     fun clearUser() {
-        havUser = UserReturned(false)
+        havUser = UserReturned(UserSituation.DEFAULT)
     }
 
     fun postUser(user: User): User? {
         val call = service.postUser(user)
         call.enqueue(CallbackWithReturn(
-                object : CallbackWithReturn.AnswerCallback<User> {
-                    override fun whenSucess(result: User) {
-                        userRequest = result
-                        havUser = UserReturned(true)
+                object : CallbackWithReturn.AnswerCallback<UserRequest> {
+                    override fun whenSucess(result: UserRequest) {
+                        userRequest = User(result)
+                        havUser = UserReturned(UserSituation.RETURNED)
                     }
 
                     override fun whenFailure(error: String) {
-                        Log.e("Retrofit", error)
-                        havUser = UserReturned(false)
+                        Log.e("retrofit", error)
+                        havUser = UserReturned(UserSituation.UNRETURNED)
                     }
 
                 }

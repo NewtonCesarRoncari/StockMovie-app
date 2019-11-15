@@ -22,6 +22,7 @@ import androidx.lifecycle.Observer
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import br.com.mov.R
 import br.com.mov.models.User
+import br.com.mov.models.constant.UserSituation
 import br.com.mov.views.viewmodel.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.popup_count.*
@@ -80,10 +81,12 @@ class LoginFragment : Fragment() {
         initFieldsCountPopup()
         setFonts()
         positiveButton.setOnClickListener {
-            val user = initUser()
-            userViewModel.postUser(user)
-            showProgressBar(true)
-            checkUserReturned()
+            if (checkIsEmpty()){
+                val user = initUser()
+                userViewModel.postUser(user)
+                showProgressBar(true)
+                checkUserReturned()
+            }
         }
         toggleMsg.setOnClickListener {
             popup.dismiss()
@@ -99,6 +102,26 @@ class LoginFragment : Fragment() {
                 popup.popup_count_name_InputEditText.text.toString().trim(),
                 popup.popup_count_email_InputEditText.text.toString().trim(),
                 popup.popup_count_password_InputEditText.text.toString().trim())
+    }
+
+    private fun checkIsEmpty(): Boolean {
+        var somethingIsNull = true
+        if (popup.popup_count_name_InputEditText.text.toString().trim().isEmpty()) {
+            popup.popup_count_name_InputEditText.error = "Campo Obrigatório"
+            somethingIsNull = false
+        }
+        if (popup.popup_count_email_InputEditText.text.toString().trim().isEmpty()) {
+            popup.popup_count_email_InputEditText.error = "Campo Obrigatório"
+            somethingIsNull = false
+        }
+        if (popup.popup_count_password_InputEditText.text.toString().trim().isEmpty()) {
+            popup.popup_count_password_InputEditText.error = "Campo Obrigatório"
+            somethingIsNull = false
+        }
+        if (!somethingIsNull){
+            return false
+        }
+        return true
     }
 
     private fun initFieldsCountPopup() {
@@ -121,29 +144,7 @@ class LoginFragment : Fragment() {
             animation.visibility = VISIBLE
             animation.setAnimation("anim/logo_animated.json")
             animation.playAnimation()
-            animation.addAnimatorListener(object : Animator.AnimatorListener {
-                override fun onAnimationStart(animation: Animator) {
-                    Log.e("Animation:", "start")
-                    hiddenFields()
-                }
-
-                override fun onAnimationEnd(animation: Animator) {
-                    try {
-                        loginViewModel.login()
-                        goToHomeFragment()
-                    } catch (ex: Exception) {
-                        ex.toString()
-                    }
-                }
-
-                override fun onAnimationCancel(animation: Animator) {
-                    Log.e("Animation:", "cancel")
-                }
-
-                override fun onAnimationRepeat(animation: Animator) {
-                    Log.e("Animation:", "repeat")
-                }
-            })
+            animation.addAnimatorListener(animatorListener())
         }
         toggleMsg.setOnClickListener {
             popup.dismiss()
@@ -200,42 +201,47 @@ class LoginFragment : Fragment() {
     private fun checkUserReturned() {
         stateUserViewModel.userReturned.observe(viewLifecycleOwner, Observer {
             it?.also { userReturned ->
-                if (!userReturned.userReturned) {
+                if (userReturned.userReturned == UserSituation.UNRETURNED) {
                     showProgressBar(false)
+                    stateUserViewModel.clearUser()
                     Toast.makeText(context,
-                            "campos preenchidos incorretamente", Toast.LENGTH_SHORT).show()
-                } else {
+                            "Falha de comunicação", Toast.LENGTH_SHORT).show()
+                } else if (userReturned.userReturned == UserSituation.RETURNED) {
                     showProgressBar(false)
                     popup.dismiss()
                     animation.visibility = VISIBLE
                     animation.setAnimation("anim/logo_animated.json")
                     animation.playAnimation()
-                    animation.addAnimatorListener(object : Animator.AnimatorListener {
-                        override fun onAnimationStart(animation: Animator) {
-                            Log.e("Animation:", "start")
-                            hiddenFields()
-                        }
-
-                        override fun onAnimationEnd(animation: Animator) {
-                            try {
-                                loginViewModel.login()
-                                goToHomeFragment()
-                            } catch (ex: Exception) {
-                                ex.toString()
-                            }
-                        }
-
-                        override fun onAnimationCancel(animation: Animator) {
-                            Log.e("Animation:", "cancel")
-                        }
-
-                        override fun onAnimationRepeat(animation: Animator) {
-                            Log.e("Animation:", "repeat")
-                        }
-                    })
+                    animation.addAnimatorListener(animatorListener())
                 }
             }
         })
+    }
+
+    private fun animatorListener(): Animator.AnimatorListener {
+        return object : Animator.AnimatorListener {
+            override fun onAnimationStart(animation: Animator) {
+                Log.e("Animation:", "start")
+                hiddenFields()
+            }
+
+            override fun onAnimationEnd(animation: Animator) {
+                try {
+                    loginViewModel.login()
+                    goToHomeFragment()
+                } catch (ex: Exception) {
+                    ex.toString()
+                }
+            }
+
+            override fun onAnimationCancel(animation: Animator) {
+                Log.e("Animation:", "cancel")
+            }
+
+            override fun onAnimationRepeat(animation: Animator) {
+                Log.e("Animation:", "repeat")
+            }
+        }
     }
 
 }

@@ -2,6 +2,7 @@ package br.com.mov.views.viewmodel
 
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.ViewModel
+import br.com.mov.models.constant.UserSituation
 import br.com.mov.repository.UserRepository
 
 class StateUserViewModel(private val repository: UserRepository) : ViewModel() {
@@ -12,5 +13,5 @@ class StateUserViewModel(private val repository: UserRepository) : ViewModel() {
 }
 
 class UserReturned(
-        val userReturned: Boolean = false
+        val userReturned: UserSituation = UserSituation.DEFAULT
 )

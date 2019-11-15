@@ -1,6 +1,7 @@
 package br.com.mov.retrofit.service
 
 import br.com.mov.models.User
+import br.com.mov.models.dto.UserRequest
 import retrofit2.Call
 import retrofit2.http.Body
 import retrofit2.http.GET
@@ -13,5 +14,5 @@ interface UserService {
     fun getUser(@Path("email") email: String): Call<User>
 
     @POST("users")
-    fun postUser(@Body user: User): Call<User>
+    fun postUser(@Body user: User): Call<UserRequest>
 }

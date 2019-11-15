@@ -9,14 +9,12 @@ import androidx.navigation.Navigation.findNavController
 import androidx.navigation.ui.NavigationUI
 import br.com.mov.R
 import br.com.mov.views.viewmodel.StateAppComponentsViewModel
-import br.com.mov.views.viewmodel.StateUserViewModel
 import kotlinx.android.synthetic.main.frame_navigation.*
 import org.koin.android.viewmodel.ext.android.viewModel
 
 class NavigationActivity : AppCompatActivity() {
 
     private val componentsViewModel: StateAppComponentsViewModel by viewModel()
-    private val stateUserViewModel: StateUserViewModel by viewModel()
     private val navController by lazy {
         findNavController(this, R.id.frame_navigation)
     }

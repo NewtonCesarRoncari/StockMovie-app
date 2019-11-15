@@ -16,7 +16,8 @@ import java.util.*
 
 class MovieAdapter(
         private val context: Context,
-        private var movies: List<Movie>
+        private var movies: List<Movie>,
+        var onItemCliclListener:(movie: Movie) -> Unit = {}
 ) : RecyclerView.Adapter<MovieAdapter.MyViewHolder>(), Filterable {
 
     private var movieListFull: List<Movie> = movies.toList()
@@ -64,8 +65,9 @@ class MovieAdapter(
 
     override fun onBindViewHolder(holder: MyViewHolder, position: Int) {
 
-        holder.movieTitle.text = movies[position].title
-        holder.movieImg.loadThumbnail(movies[position].thumbnail)
+//        holder.movieTitle.text = movies[position].title
+//        holder.movieImg.loadThumbnail(movies[position].thumbnail)
+        holder.bind(movies[position])
 
     }
 
@@ -74,8 +76,23 @@ class MovieAdapter(
     inner class MyViewHolder(itemView: View) :
             RecyclerView.ViewHolder(itemView) {
 
+        private lateinit var movie: Movie
         val movieTitle: TextView = itemView.findViewById(R.id.item_movie_title)
-        val movieImg: ImageView = itemView.findViewById(R.id.item_movie_img)
+        val movieImg: ImageView = itemView.findViewById(R.id.fragment_movie_detail_item_movie_img)
+
+        init {
+            itemView.setOnClickListener {
+                if (::movie.isInitialized) {
+                    onItemCliclListener(movie)
+                }
+            }
+        }
+
+        fun bind(movie: Movie) {
+            this.movie = movie
+            movieTitle.text = movie.title
+            movieImg.loadThumbnail(movie.thumbnail)
+        }
 
     }
 }

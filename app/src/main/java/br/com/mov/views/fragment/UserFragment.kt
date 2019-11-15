@@ -8,7 +8,9 @@ import androidx.viewpager.widget.ViewPager
 import br.com.mov.R
 import br.com.mov.views.tabs.adapter.TabsAdapter
 import br.com.mov.views.viewmodel.LoginViewModel
+import br.com.mov.views.viewmodel.StateAppComponentsViewModel
 import br.com.mov.views.viewmodel.StateUserViewModel
+import br.com.mov.views.viewmodel.VisualComponents
 import com.google.android.material.tabs.TabLayout
 import kotlinx.android.synthetic.main.fragment_user.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
@@ -18,11 +20,13 @@ class UserFragment : Fragment() {
 
     private val navController by lazy { findNavController(this) }
     private val loginViewModel: LoginViewModel by viewModel()
+    private val appComponentsViewModel: StateAppComponentsViewModel by sharedViewModel()
     private val stateUserViewModel: StateUserViewModel by sharedViewModel()
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
         val view = inflater.inflate(R.layout.fragment_user, container, false)
 
+        appComponentsViewModel.havCoponent = VisualComponents(true)
         setHasOptionsMenu(true)
 
         return view
