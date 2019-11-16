@@ -1,11 +1,18 @@
 package br.com.mov.models
 
+import androidx.room.Entity
+import androidx.room.Ignore
+import androidx.room.PrimaryKey
 import br.com.mov.models.dto.UserRequest
 
-class User(val id: Long? = null,
-           val name: String = "",
-           val email: String = "",
-           val password: String = "") {
+@Entity(tableName = "user")
+class User(
+        @PrimaryKey(autoGenerate = false)
+        var id: Long? = null,
+        var name: String = "",
+        var email: String = "",
+        @Ignore
+        val password: String = "") {
 
     constructor(user: UserRequest) : this(
             id = user.id,

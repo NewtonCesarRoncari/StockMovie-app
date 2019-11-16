@@ -1,18 +1,27 @@
 package br.com.mov.repository
 
 import android.util.Log
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
+import br.com.mov.database.dao.UserDAO
 import br.com.mov.models.User
 import br.com.mov.models.constant.UserSituation
 import br.com.mov.models.dto.UserRequest
 import br.com.mov.retrofit.callback.CallbackWithReturn
 import br.com.mov.retrofit.service.UserService
 import br.com.mov.views.viewmodel.UserReturned
+import kotlinx.coroutines.CoroutineScope
+import kotlinx.coroutines.Dispatchers
+import kotlinx.coroutines.Job
+import kotlinx.coroutines.launch
 
 class UserRepository(
+        private val dao: UserDAO,
         private val service: UserService
 ) {
 
+    private val job = Job()
+    private val scope = CoroutineScope(Dispatchers.IO + job)
     private var userRequest: User? = null
 
     val userReturn: MutableLiveData<UserReturned> =
@@ -36,6 +45,7 @@ class UserRepository(
                 object : CallbackWithReturn.AnswerCallback<UserRequest> {
                     override fun whenSucess(result: UserRequest) {
                         userRequest = User(result)
+                        insertInDatabase(userRequest!!)
                         havUser = UserReturned(UserSituation.RETURNED)
                     }
 
@@ -48,4 +58,17 @@ class UserRepository(
         ))
         return userRequest
     }
+
+    fun findUser(): LiveData<User> = dao.findUser()
+
+    fun insertInDatabase(user: User): LiveData<Resource<Long>> {
+        return MutableLiveData<Resource<Long>>().also { liveDate ->
+            scope.launch {
+                val idUser = dao.insertUser(user)
+                liveDate . postValue (Resource(idUser))
+            }
+        }
+    }
+
+    fun removeUser(user: User) = dao.removeUser(user)
 }

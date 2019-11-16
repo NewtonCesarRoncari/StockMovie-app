@@ -22,7 +22,9 @@
             app:popUpToInclusive="true" />
         <action
             android:id="@+id/action_homeFragment_to_movieDetailFragment"
-            app:destination="@+id/movieDetailFragment" />
+            app:destination="@+id/movieDetailFragment"
+            app:popUpTo="@+id/homeFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/searchFragment"
@@ -31,7 +33,9 @@
         tools:layout="@layout/fragment_search_layout" >
         <action
             android:id="@+id/action_searchFragment_to_movieDetailFragment"
-            app:destination="@id/movieDetailFragment" />
+            app:destination="@id/movieDetailFragment"
+            app:popUpTo="@+id/loginFragment"
+            app:popUpToInclusive="false" />
     </fragment>
     <fragment
         android:id="@+id/userFragment"
@@ -46,11 +50,8 @@
             app:launchSingleTop="false"
             app:popEnterAnim="@anim/nav_default_pop_enter_anim"
             app:popExitAnim="@anim/nav_default_pop_exit_anim"
-            app:popUpTo="@+id/userFragment"
+            app:popUpTo="@+id/homeFragment"
             app:popUpToInclusive="true" />
-        <action
-            android:id="@+id/action_userFragment_to_movieDetailFragment"
-            app:destination="@id/movieDetailFragment" />
     </fragment>
     <fragment
         android:id="@+id/loginFragment"
@@ -67,5 +68,6 @@
     <fragment
         android:id="@+id/movieDetailFragment"
         android:name="br.com.mov.views.fragment.MovieDetailFragment"
-        android:label="Movie Detail" />
+        android:label="Movie Detail"
+        tools:layout="@layout/fragment_movie_detail"/>
 </navigation>

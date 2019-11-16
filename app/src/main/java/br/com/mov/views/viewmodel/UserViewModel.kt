@@ -6,5 +6,9 @@ import br.com.mov.repository.UserRepository
 
 class UserViewModel(private val repository: UserRepository) : ViewModel() {
 
-    fun postUser(user: User): User? = repository.postUser(user)
+    fun postUser(user: User) = repository.postUser(user)
+
+    fun findUser() = repository.findUser()
+
+    fun removeUser(user: User) = repository.removeUser(user)
 }
