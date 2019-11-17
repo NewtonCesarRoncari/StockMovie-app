@@ -80,6 +80,9 @@ class HomeFragment : Fragment() {
                         rv_movies_filtrates.adapter = filtrateMovieAdapter
                         rv_movies_filtrates.layoutManager = LinearLayoutManager(context,
                                 LinearLayoutManager.HORIZONTAL, false)
+                        filtrateMovieAdapter.onItemCliclListener = { movie ->
+                            goToMovieDetailFragment(movie.id)
+                        }
                     }
                 })
     }
@@ -94,6 +97,9 @@ class HomeFragment : Fragment() {
                         rv_movies.adapter = movieAdapter
                         rv_movies.layoutManager = LinearLayoutManager(context,
                                 LinearLayoutManager.HORIZONTAL, false)
+                        movieAdapter.onItemCliclListener = { movie ->
+                            goToMovieDetailFragment(movie.id)
+                        }
                     }
                 })
     }
@@ -110,8 +116,11 @@ class HomeFragment : Fragment() {
         navController.navigate(direction)
     }
 
-    private fun goToMovieDetailFragment() {
-        navController.navigate(R.id.action_homeFragment_to_movieDetailFragment)
+    private fun goToMovieDetailFragment(movieId: Long?) {
+        val id: Long = movieId!!
+        val direction = HomeFragmentDirections.
+                actionHomeFragmentToMovieDetailFragment(id)
+        navController.navigate(direction)
     }
 
     internal inner class SliderTimer : TimerTask() {

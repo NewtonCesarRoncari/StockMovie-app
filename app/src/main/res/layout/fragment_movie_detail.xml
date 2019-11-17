@@ -103,7 +103,7 @@
         android:id="@+id/fragment_movie_detail_genre"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="16dp"
+        android:layout_marginStart="8dp"
         android:text="Action"
         android:textColor="@color/colorWhite"
         android:textSize="14sp"
@@ -149,32 +149,46 @@
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toBottomOf="@+id/fragment_movie_detail_item_movie_img" />
 
-    <TextView
-        android:id="@+id/fragment_movie_detail_synopsis"
-        android:layout_width="320dp"
-        android:layout_height="106dp"
-        android:layout_marginStart="32dp"
-        android:layout_marginTop="8dp"
-        android:layout_marginEnd="32dp"
-        android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed nibh maximus, dictum eros eget, gravida magna. Vivamus sodales eleifend ligula, id mollis metus luctus sed"
-        android:textAlignment="center"
-        android:textColor="@color/colorMsg"
-        android:textSize="12sp"
+    <ScrollView
+        android:id="@+id/scrollView2"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        android:layout_marginTop="2dp"
+        android:layout_marginBottom="8dp"
+        android:orientation="vertical"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_movie_detail_box_office"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/fragment_movie_detail_movie_title" />
+        app:layout_constraintTop_toBottomOf="@+id/fragment_movie_detail_movie_title">
+
+        <TextView
+            android:id="@+id/fragment_movie_detail_synopsis"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="32dp"
+            android:layout_marginLeft="2dp"
+            android:layout_marginEnd="32dp"
+            android:layout_marginRight="2dp"
+            android:text="Lorem ipsum dolor sit amet, consectetur adipiscing elit. Sed sed nibh maximus, dictum eros eget, gravida magna. Vivamus sodales eleifend ligula, id mollis metus luctus sed"
+            android:textAlignment="center"
+            android:textColor="@color/colorMsg"
+            android:textSize="12sp" />
+
+    </ScrollView>
 
     <TextView
         android:id="@+id/fragment_movie_detail_budget"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginEnd="32dp"
+        android:layout_marginStart="16dp"
         android:layout_marginBottom="32dp"
         android:text="R$321,00"
         android:textColor="@color/colorMsg"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintEnd_toStartOf="@+id/button" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/fragment_movie_detail_msg_budget"
@@ -191,13 +205,15 @@
         android:id="@+id/fragment_movie_detail_box_office"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_marginStart="32dp"
+        android:layout_marginEnd="16dp"
         android:layout_marginBottom="32dp"
         android:text="R$2.020,00"
         android:textColor="@color/colorMsg"
         android:textSize="18sp"
         app:layout_constraintBottom_toTopOf="@+id/button"
-        app:layout_constraintStart_toEndOf="@+id/button" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
         android:id="@+id/fragment_movie_detail_msg_box_office"

@@ -5,8 +5,15 @@ import java.text.DecimalFormat
 import java.util.*
 
 fun BigDecimal.formatForBrazilianCoin(): String {
-    val BrazilianFormat = DecimalFormat
+    val brazilianFormat = DecimalFormat
         .getCurrencyInstance(Locale("pt", "br"))
-    return BrazilianFormat
+    return brazilianFormat
         .format(this)
+}
+
+fun BigDecimal.formatForUSACoin(): String {
+    val usaFormat = DecimalFormat
+            .getCurrencyInstance(Locale("en", "us"))
+    return usaFormat
+            .format(this)
 }

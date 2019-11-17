@@ -45,5 +45,6 @@ val viewModelModule = module {
     viewModel<LoginViewModel> { LoginViewModel(get()) }
     viewModel<UserViewModel> { UserViewModel(get()) }
     viewModel<MovieViewModel> { MovieViewModel(get()) }
+    viewModel<MovieDetailViewModel> { (movieId: Long) -> MovieDetailViewModel(movieId, get()) }
     viewModel<StateUserViewModel> { StateUserViewModel(get()) }
 }

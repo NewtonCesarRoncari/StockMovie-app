@@ -15,7 +15,7 @@ import org.koin.android.viewmodel.ext.android.sharedViewModel
 
 class SearchFragment : Fragment() {
 
-    private var adapter: MovieAdapter? = null
+    private lateinit var adapter: MovieAdapter
     private val appComponentsViewModel: StateAppComponentsViewModel by sharedViewModel()
     private val movieViewModel: MovieViewModel by sharedViewModel()
     private val navController by lazy { NavHostFragment.findNavController(this) }
@@ -43,12 +43,18 @@ class SearchFragment : Fragment() {
                             MovieAdapter(context, movieList)
                         }!!
                         rv_search.adapter = adapter
+                        adapter.onItemCliclListener = { movie ->
+                            goToMovieDetailFragment(movie.id)
+                        }
                     }
                 })
     }
 
-    private fun goToMovieDetailFragment() {
-        navController.navigate(R.id.action_searchFragment_to_movieDetailFragment)
+    private fun goToMovieDetailFragment(movieId: Long?) {
+        val id: Long = movieId!!
+        val direction = SearchFragmentDirections.
+                actionSearchFragmentToMovieDetailFragment(id)
+        navController.navigate(direction)
     }
 
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
@@ -63,8 +69,7 @@ class SearchFragment : Fragment() {
             }
 
             override fun onQueryTextChange(newText: String): Boolean {
-                if (adapter != null)
-                    adapter?.filter?.filter(newText)
+                adapter.filter.filter(newText)
                 return false
             }
         })
