@@ -45,7 +45,7 @@ class UserRepository(
                 object : CallbackWithReturn.AnswerCallback<UserRequest> {
                     override fun whenSucess(result: UserRequest) {
                         userRequest = User(result)
-                        insertInDatabase(userRequest!!)
+                        insertUserInDatabase(userRequest!!)
                         havUser = UserReturned(UserSituation.RETURNED)
                     }
 
@@ -59,9 +59,29 @@ class UserRepository(
         return userRequest
     }
 
-    fun findUser(): LiveData<User> = dao.findUser()
+    fun postUserAuth(user: User): User? {
+        val call = service.postUserAuth(user)
+        call.enqueue(CallbackWithReturn(
+                object : CallbackWithReturn.AnswerCallback<UserRequest> {
+                    override fun whenSucess(result: UserRequest) {
+                        userRequest = User(result)
+                        insertUserInDatabase(userRequest!!)
+                        havUser = UserReturned(UserSituation.RETURNED)
+                    }
 
-    fun insertInDatabase(user: User): LiveData<Resource<Long>> {
+                    override fun whenFailure(error: String) {
+                        Log.e("retrofit", error)
+                        havUser = UserReturned(UserSituation.UNRETURNED)
+                    }
+
+                }
+        ))
+        return userRequest
+    }
+
+    fun findUserInDatabase(): LiveData<User> = dao.findUser()
+
+    fun insertUserInDatabase(user: User): LiveData<Resource<Long>> {
         return MutableLiveData<Resource<Long>>().also { liveDate ->
             scope.launch {
                 val idUser = dao.insertUser(user)
@@ -70,5 +90,9 @@ class UserRepository(
         }
     }
 
-    fun removeUser(user: User) = dao.removeUser(user)
+    fun removeUserInDatabase(user: User){
+          scope.launch {
+              dao.removeUser(user)
+            }
+    }
 }

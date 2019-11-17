@@ -26,11 +26,13 @@ import br.com.mov.models.constant.UserSituation
 import br.com.mov.views.viewmodel.*
 import kotlinx.android.synthetic.main.fragment_login.*
 import kotlinx.android.synthetic.main.popup_count.*
+import kotlinx.android.synthetic.main.popup_login.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
 
 
 class LoginFragment : Fragment() {
+
 
     private lateinit var popup: Dialog
     private lateinit var fontSemiBold: Typeface
@@ -81,8 +83,8 @@ class LoginFragment : Fragment() {
         initFieldsCountPopup()
         setFonts()
         positiveButton.setOnClickListener {
-            if (checkIsEmpty()){
-                val user = initUser()
+            if (checkFieldsCountIsEmpty()){
+                val user = initUserCount()
                 userViewModel.postUser(user)
                 showProgressBar(true)
                 checkUserReturned()
@@ -96,7 +98,15 @@ class LoginFragment : Fragment() {
         popup.show()
     }
 
-    private fun initUser(): User {
+    private fun initUserLogin(): User {
+        return User(
+                null,
+                "",
+                popup.popup_login_email_InputEditText.text.toString().trim(),
+                popup.popup_login_password_InputEditText.text.toString().trim())
+    }
+
+    private fun initUserCount(): User {
         return User(
                 null,
                 popup.popup_count_name_InputEditText.text.toString().trim(),
@@ -104,7 +114,7 @@ class LoginFragment : Fragment() {
                 popup.popup_count_password_InputEditText.text.toString().trim())
     }
 
-    private fun checkIsEmpty(): Boolean {
+    private fun checkFieldsCountIsEmpty(): Boolean {
         var somethingIsNull = true
         if (popup.popup_count_name_InputEditText.text.toString().trim().isEmpty()) {
             popup.popup_count_name_InputEditText.error = "Campo Obrigatório"
@@ -140,11 +150,12 @@ class LoginFragment : Fragment() {
         initFieldsLoginPopup()
         setFonts()
         positiveButton.setOnClickListener {
-            popup.dismiss()
-            animation.visibility = VISIBLE
-            animation.setAnimation("anim/logo_animated.json")
-            animation.playAnimation()
-            animation.addAnimatorListener(animatorListener())
+            if (checkFieldsLoginIsEmpty()){
+                val user = initUserLogin()
+                userViewModel.postUserAuth(user)
+                showProgressBar(true)
+                checkUserReturned()
+            }
         }
         toggleMsg.setOnClickListener {
             popup.dismiss()
@@ -152,6 +163,22 @@ class LoginFragment : Fragment() {
         }
         popup.window!!.setBackgroundDrawable(ColorDrawable(Color.TRANSPARENT))
         popup.show()
+    }
+
+    private fun checkFieldsLoginIsEmpty(): Boolean {
+        var somethingIsNull = true
+        if (popup.popup_login_email_InputEditText.text.toString().trim().isEmpty()) {
+            popup.popup_login_email_InputEditText.error = "Campo Obrigatório"
+            somethingIsNull = false
+        }
+        if (popup.popup_login_password_InputEditText.text.toString().trim().isEmpty()) {
+            popup.popup_login_password_InputEditText.error = "Campo Obrigatório"
+            somethingIsNull = false
+        }
+        if (!somethingIsNull){
+            return false
+        }
+        return true
     }
 
     private fun hiddenFields() {
@@ -165,6 +192,7 @@ class LoginFragment : Fragment() {
 
     private fun initFieldsLoginPopup() {
         positiveButton = popup.findViewById(R.id.popup_login_login_btn)
+        progressBar = popup.findViewById(R.id.popup_login_progressBar)
         toggleMsg = popup.findViewById(R.id.popup_login_new_count)
         msgWelcome = popup.findViewById(R.id.popup_login_welcome)
         msg = popup.findViewById(R.id.popup_login_msg)
@@ -186,7 +214,7 @@ class LoginFragment : Fragment() {
 
     private fun showProgressBar(show: Boolean) {
         if (!show) {
-            this.positiveButton.text = "CRIAR CONTA"
+            this.positiveButton.text = "Tentar Novamente"
             this.positiveButton.isClickable = true
             this.positiveButton.isFocusable = true
             this.progressBar.visibility = GONE
@@ -203,7 +231,7 @@ class LoginFragment : Fragment() {
             it?.also { userReturned ->
                 if (userReturned.userReturned == UserSituation.UNRETURNED) {
                     showProgressBar(false)
-                    stateUserViewModel.clearUser()
+                    stateUserViewModel.clearUserSituation()
                     Toast.makeText(context,
                             "Falha de comunicação", Toast.LENGTH_SHORT).show()
                 } else if (userReturned.userReturned == UserSituation.RETURNED) {

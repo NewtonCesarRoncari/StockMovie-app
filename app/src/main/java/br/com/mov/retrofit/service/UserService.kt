@@ -11,8 +11,11 @@ import retrofit2.http.Path
 interface UserService {
 
     @GET("users/{email}")
-    fun getUser(@Path("email") email: String): Call<User>
+    fun getUser(@Path("email") email: String): Call<UserRequest>
 
     @POST("users")
     fun postUser(@Body user: User): Call<UserRequest>
+
+    @POST("users/auth")
+    fun postUserAuth(@Body user: User): Call<UserRequest>
 }

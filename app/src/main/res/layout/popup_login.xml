@@ -104,6 +104,21 @@
         app:layout_constraintTop_toBottomOf="@+id/popup_login_password_InputLayout"
         app:layout_constraintVertical_bias="0.32" />
 
+    <ProgressBar
+        android:id="@+id/popup_login_progressBar"
+        style="?android:attr/progressBarStyle"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:elevation="15dp"
+        android:indeterminate="true"
+        android:indeterminateTint="@color/colorBlue"
+        android:indeterminateTintMode="src_atop"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/popup_login_login_btn"
+        app:layout_constraintEnd_toEndOf="@+id/popup_login_login_btn"
+        app:layout_constraintStart_toStartOf="@+id/popup_login_login_btn"
+        app:layout_constraintTop_toTopOf="@+id/popup_login_login_btn"/>
+
     <TextView
         android:id="@+id/popup_login_msg2"
         android:layout_width="wrap_content"

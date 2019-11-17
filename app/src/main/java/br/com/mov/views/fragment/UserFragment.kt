@@ -48,11 +48,11 @@ class UserFragment : Fragment() {
     }
 
     private fun findUser() {
-        userViewModel.findUser().observe(viewLifecycleOwner, Observer {
+        userViewModel.findUserInDatabase().observe(viewLifecycleOwner, Observer {
             it.let {user ->
                 this.user = user
-                fragment_user_name.text = user.name
-                fragment_user_email.text = user.email
+                fragment_user_name.text = this.user.name
+                fragment_user_email.text = this.user.email
             }
         })
     }
@@ -60,8 +60,8 @@ class UserFragment : Fragment() {
     override fun onOptionsItemSelected(item: MenuItem): Boolean {
         if (item.itemId == R.id.menu_user_logout) {
 
-            stateUserViewModel.clearUser()
-            userViewModel.removeUser(this.user)
+            stateUserViewModel.clearUserSituation()
+            userViewModel.removeUserInDatabase(this.user)
             loginViewModel.logout()
             goToLoginFragment()
         }

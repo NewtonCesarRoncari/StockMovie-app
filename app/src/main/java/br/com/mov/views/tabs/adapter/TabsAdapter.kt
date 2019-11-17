@@ -3,8 +3,8 @@ package br.com.mov.views.tabs.adapter
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.FragmentManager
 import androidx.fragment.app.FragmentStatePagerAdapter
-
 import br.com.mov.views.fragment.UserDataFragment
+
 import br.com.mov.views.fragment.WalletFragment
 
 class TabsAdapter(fm: FragmentManager) : FragmentStatePagerAdapter(fm) {
