@@ -11,13 +11,11 @@ import androidx.fragment.app.FragmentActivity
 import androidx.navigation.fragment.NavHostFragment.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import br.com.mov.R
-import br.com.mov.extensions.getMovieResources
-import br.com.mov.extensions.getMoviesFiltratesResource
-import br.com.mov.models.Movie
 import br.com.mov.models.Slide
 import br.com.mov.views.recyclerview.adapter.MovieAdapter
 import br.com.mov.views.slidepager.adapter.SlidePagerAdapter
 import br.com.mov.views.viewmodel.LoginViewModel
+import br.com.mov.views.viewmodel.MovieViewModel
 import br.com.mov.views.viewmodel.StateAppComponentsViewModel
 import br.com.mov.views.viewmodel.VisualComponents
 import kotlinx.android.synthetic.main.fragment_home.*
@@ -30,6 +28,9 @@ class HomeFragment : Fragment() {
     private lateinit var slideList: ArrayList<Slide>
     private val appComponentsViewModel: StateAppComponentsViewModel by sharedViewModel()
     private val loginViewModel: LoginViewModel by viewModel()
+    private val movieViewModel: MovieViewModel by viewModel()
+    private lateinit var movieAdapter: MovieAdapter
+    private lateinit var filtrateMovieAdapter: MovieAdapter
     private val navController by lazy { findNavController(this) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -38,6 +39,7 @@ class HomeFragment : Fragment() {
 
         checkStateLogin()
         appComponentsViewModel.havCoponent = VisualComponents(true)
+        movieViewModel.getMovies()
         return view
     }
 
@@ -62,21 +64,38 @@ class HomeFragment : Fragment() {
         val timer = Timer()
         timer.scheduleAtFixedRate(SliderTimer(), 4000, 6000)
 
-
         indicator.setupWithViewPager(slider_pager, true)
 
-        val movieAdapter = context?.let { MovieAdapter(it, Movie("", "").getMovieResources()) }
-        val movieAdapter1 = context?.let { MovieAdapter(it, Movie("", "").getMoviesFiltratesResource()) }
-        rv_movies_filtrates.adapter = movieAdapter1
-        rv_movies.adapter = movieAdapter
-        rv_movies_filtrates.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        rv_movies.layoutManager = LinearLayoutManager(context, LinearLayoutManager.HORIZONTAL, false)
-        movieAdapter!!.onItemCliclListener = {
-            goToMovieDetailFragment()
-        }
-        movieAdapter1!!.onItemCliclListener = {
-            goToMovieDetailFragment()
-        }
+        initFiltrateMovieAdapter()
+        initMovieAdapter()
+    }
+
+    private fun initFiltrateMovieAdapter() {
+        movieViewModel.checkMoviesReturned()?.observe(viewLifecycleOwner,
+                androidx.lifecycle.Observer { movieList ->
+                    if (movieList != null) {
+                        this.filtrateMovieAdapter = context?.let { context ->
+                            MovieAdapter(context, movieList)
+                        }!!
+                        rv_movies_filtrates.adapter = filtrateMovieAdapter
+                        rv_movies_filtrates.layoutManager = LinearLayoutManager(context,
+                                LinearLayoutManager.HORIZONTAL, false)
+                    }
+                })
+    }
+
+    private fun initMovieAdapter() {
+        movieViewModel.checkMoviesReturned()?.observe(viewLifecycleOwner,
+                androidx.lifecycle.Observer { movieList ->
+                    if (movieList != null) {
+                        this.movieAdapter = context?.let { context ->
+                            MovieAdapter(context, movieList)
+                        }!!
+                        rv_movies.adapter = movieAdapter
+                        rv_movies.layoutManager = LinearLayoutManager(context,
+                                LinearLayoutManager.HORIZONTAL, false)
+                    }
+                })
     }
 
     private fun checkStateLogin() {

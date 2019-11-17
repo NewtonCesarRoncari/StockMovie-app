@@ -1,5 +1,6 @@
 package br.com.mov.retrofit
 
+import br.com.mov.retrofit.service.MovieService
 import br.com.mov.retrofit.service.UserService
 import okhttp3.OkHttpClient
 import okhttp3.logging.HttpLoggingInterceptor
@@ -27,5 +28,9 @@ class ConnectionRetrofit {
 
     val userService: UserService by lazy {
         retrofit.create(UserService::class.java)
+    }
+
+    val movieService: MovieService by lazy {
+        retrofit.create(MovieService::class.java)
     }
 }

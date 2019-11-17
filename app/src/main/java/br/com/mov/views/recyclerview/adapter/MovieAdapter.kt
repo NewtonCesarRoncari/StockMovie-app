@@ -11,21 +11,21 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import br.com.mov.R
 import br.com.mov.extensions.loadThumbnail
-import br.com.mov.models.Movie
+import br.com.mov.models.dto.Content
 import java.util.*
 
 class MovieAdapter(
         private val context: Context,
-        private var movies: List<Movie>,
-        var onItemCliclListener:(movie: Movie) -> Unit = {}
+        private var movies: List<Content>,
+        var onItemCliclListener:(movie: Content) -> Unit = {}
 ) : RecyclerView.Adapter<MovieAdapter.MyViewHolder>(), Filterable {
 
-    private var movieListFull: List<Movie> = movies.toList()
+    private var movieListFull: List<Content> = movies.toList()
 
     //regionFilter
     private val filter = object : Filter() {
         override fun performFiltering(constraint: CharSequence?): FilterResults {
-            val filteredList: MutableList<Movie> = mutableListOf()
+            val filteredList: MutableList<Content> = mutableListOf()
 
             if (constraint.isNullOrEmpty()) {
                 filteredList.addAll(movieListFull)
@@ -33,7 +33,7 @@ class MovieAdapter(
                 val filterPattern = constraint.toString().toLowerCase(Locale.getDefault()).trim()
 
                 for (movie in movieListFull) {
-                    if (movie.title.toLowerCase(Locale.getDefault()).contains(filterPattern)) {
+                    if (movie.title?.toLowerCase(Locale.getDefault())?.contains(filterPattern)!!) {
                         filteredList.add(movie)
                     }
                 }
@@ -47,7 +47,7 @@ class MovieAdapter(
         }
 
         override fun publishResults(constraint: CharSequence, results: FilterResults) {
-            movies = (results.values as List<*>).filterIsInstance<Movie>() as MutableList<Movie>
+            movies = (results.values as List<*>).filterIsInstance<Content>() as MutableList<Content>
             notifyDataSetChanged()
         }
     }
@@ -76,7 +76,7 @@ class MovieAdapter(
     inner class MyViewHolder(itemView: View) :
             RecyclerView.ViewHolder(itemView) {
 
-        private lateinit var movie: Movie
+        private lateinit var movie: Content
         val movieTitle: TextView = itemView.findViewById(R.id.item_movie_title)
         val movieImg: ImageView = itemView.findViewById(R.id.fragment_movie_detail_item_movie_img)
 
@@ -88,10 +88,10 @@ class MovieAdapter(
             }
         }
 
-        fun bind(movie: Movie) {
+        fun bind(movie: Content) {
             this.movie = movie
             movieTitle.text = movie.title
-            movieImg.loadThumbnail(movie.thumbnail)
+            movie.pictureUrl?.let { movieImg.loadThumbnail(it) }
         }
 
     }

@@ -6,9 +6,8 @@ import android.widget.SearchView
 import androidx.fragment.app.Fragment
 import androidx.navigation.fragment.NavHostFragment
 import br.com.mov.R
-import br.com.mov.extensions.getMovieResources
-import br.com.mov.models.Movie
 import br.com.mov.views.recyclerview.adapter.MovieAdapter
+import br.com.mov.views.viewmodel.MovieViewModel
 import br.com.mov.views.viewmodel.StateAppComponentsViewModel
 import br.com.mov.views.viewmodel.VisualComponents
 import kotlinx.android.synthetic.main.fragment_search_layout.*
@@ -18,6 +17,7 @@ class SearchFragment : Fragment() {
 
     private var adapter: MovieAdapter? = null
     private val appComponentsViewModel: StateAppComponentsViewModel by sharedViewModel()
+    private val movieViewModel: MovieViewModel by sharedViewModel()
     private val navController by lazy { NavHostFragment.findNavController(this) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?, savedInstanceState: Bundle?): View? {
@@ -30,14 +30,21 @@ class SearchFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        this.adapter = context?.let { MovieAdapter(it, Movie("", "").getMovieResources()) }
-        rv_search.adapter = adapter
-
-        adapter!!.onItemCliclListener = {
-            goToMovieDetailFragment()
-        }
+        initMovieAdapter()
 
         setHasOptionsMenu(true)
+    }
+
+    private fun initMovieAdapter() {
+        movieViewModel.checkMoviesReturned()?.observe(viewLifecycleOwner,
+                androidx.lifecycle.Observer { movieList ->
+                    if (movieList != null) {
+                        this.adapter = context?.let { context ->
+                            MovieAdapter(context, movieList)
+                        }!!
+                        rv_search.adapter = adapter
+                    }
+                })
     }
 
     private fun goToMovieDetailFragment() {
