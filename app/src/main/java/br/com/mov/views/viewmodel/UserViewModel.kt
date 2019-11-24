@@ -10,6 +10,8 @@ class UserViewModel(private val repository: UserRepository) : ViewModel() {
 
     fun postUserAuth(user: User) = repository.postUserAuth(user)
 
+    fun getUser(userId: Long) = repository.getUser(userId)
+
     fun findUserInDatabase() = repository.findUserInDatabase()
 
     fun removeUserInDatabase(user: User) = repository.removeUserInDatabase(user)

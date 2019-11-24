@@ -6,17 +6,69 @@
     android:layout_height="match_parent"
     android:background="@color/colorPrimary">
 
+    <Button
+        android:id="@+id/button6"
+        android:layout_width="314dp"
+        android:layout_height="46dp"
+        android:layout_marginStart="45dp"
+        android:layout_marginTop="16dp"
+        android:layout_marginEnd="45dp"
+        android:background="@drawable/shape_search"
+        android:clickable="false"
+        android:focusable="false"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.0"/>
+
+    <EditText
+        android:id="@+id/editText"
+        style="@style/MyEditTextTheme"
+        android:layout_width="0dp"
+        android:layout_height="wrap_content"
+        android:layout_marginStart="24dp"
+        android:layout_marginEnd="75dp"
+        android:autofillHints="Search"
+        android:backgroundTint="@color/colorBlackAbsolute"
+        android:elevation="2dp"
+        android:hint="Search"
+        android:inputType="text"
+        android:textColor="@color/colorWhite"
+        android:textColorHint="@color/colorMsg"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/button6"
+        app:layout_constraintEnd_toEndOf="@+id/button6"
+        app:layout_constraintStart_toStartOf="@+id/button6"
+        app:layout_constraintTop_toTopOf="@+id/button6"/>
+
+    <ImageView
+        android:id="@+id/imageView3"
+        android:layout_width="28dp"
+        android:layout_height="22dp"
+        android:contentDescription="Search"
+        android:elevation="2dp"
+        android:visibility="gone"
+        app:layout_constraintBottom_toBottomOf="@+id/button6"
+        app:layout_constraintEnd_toEndOf="@+id/button6"
+        app:layout_constraintStart_toEndOf="@+id/editText"
+        app:layout_constraintTop_toTopOf="@+id/button6"
+        app:srcCompat="@drawable/ic_search"/>
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/rv_search"
         android:layout_width="0dp"
         android:layout_height="0dp"
         android:layout_marginStart="16dp"
-        android:layout_marginLeft="16dp"
+        android:layout_marginTop="24dp"
         app:layoutManager="androidx.recyclerview.widget.StaggeredGridLayoutManager"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/button6"
         app:spanCount="3"
         tools:listitem="@layout/item_movie" />
+
+
 </androidx.constraintlayout.widget.ConstraintLayout>

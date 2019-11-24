@@ -1,5 +1,6 @@
 package br.com.mov.retrofit
 
+import br.com.mov.retrofit.service.BuyOrderService
 import br.com.mov.retrofit.service.MovieService
 import br.com.mov.retrofit.service.UserService
 import okhttp3.OkHttpClient
@@ -32,5 +33,9 @@ class ConnectionRetrofit {
 
     val movieService: MovieService by lazy {
         retrofit.create(MovieService::class.java)
+    }
+
+    val buyOrderService: BuyOrderService by lazy {
+        retrofit.create(BuyOrderService::class.java)
     }
 }

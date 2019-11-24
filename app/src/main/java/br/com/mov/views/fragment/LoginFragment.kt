@@ -29,6 +29,7 @@ import kotlinx.android.synthetic.main.popup_count.*
 import kotlinx.android.synthetic.main.popup_login.*
 import org.koin.android.viewmodel.ext.android.sharedViewModel
 import org.koin.android.viewmodel.ext.android.viewModel
+import java.math.BigDecimal
 
 
 class LoginFragment : Fragment() {
@@ -103,7 +104,8 @@ class LoginFragment : Fragment() {
                 null,
                 "",
                 popup.popup_login_email_InputEditText.text.toString().trim(),
-                popup.popup_login_password_InputEditText.text.toString().trim())
+                popup.popup_login_password_InputEditText.text.toString().trim(),
+                BigDecimal.ZERO)
     }
 
     private fun initUserCount(): User {
@@ -111,7 +113,8 @@ class LoginFragment : Fragment() {
                 null,
                 popup.popup_count_name_InputEditText.text.toString().trim(),
                 popup.popup_count_email_InputEditText.text.toString().trim(),
-                popup.popup_count_password_InputEditText.text.toString().trim())
+                popup.popup_count_password_InputEditText.text.toString().trim(),
+                BigDecimal.ZERO)
     }
 
     private fun checkFieldsCountIsEmpty(): Boolean {

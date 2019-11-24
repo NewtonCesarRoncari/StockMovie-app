@@ -65,9 +65,9 @@ class MovieFullRequest {
 
     var runtime: Int = 0
 
-    var stockPrice: Any? = null
+    var stockPrice: BigDecimal? = null
 
-    var quantityAvailable: Int? = null
+    var quantityAvailable: Long? = null
 
     var cast: List<Cast>? = null
 

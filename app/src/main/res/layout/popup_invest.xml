@@ -9,7 +9,7 @@
 
 
     <Button
-        android:id="@+id/button2"
+        android:id="@+id/popup_invest_shape_quant"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="32dp"
@@ -23,7 +23,7 @@
         app:layout_constraintTop_toTopOf="parent" />
 
     <Button
-        android:id="@+id/button5"
+        android:id="@+id/popup_invest_shape_stock_price"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginTop="32dp"
@@ -31,9 +31,9 @@
         android:clickable="false"
         android:elevation="16dp"
         android:focusable="false"
-        app:layout_constraintEnd_toEndOf="@+id/button2"
-        app:layout_constraintStart_toStartOf="@+id/button2"
-        app:layout_constraintTop_toBottomOf="@+id/button2" />
+        app:layout_constraintEnd_toEndOf="@+id/popup_invest_shape_quant"
+        app:layout_constraintStart_toStartOf="@+id/popup_invest_shape_quant"
+        app:layout_constraintTop_toBottomOf="@+id/popup_invest_shape_quant" />
 
     <View
         android:id="@+id/secondDivider"
@@ -41,77 +41,78 @@
         android:layout_height="2dp"
         android:background="@color/colorAccent"
         android:elevation="2dp"
-        app:layout_constraintBottom_toBottomOf="@id/button5"
-        app:layout_constraintEnd_toEndOf="@id/button5"
-        app:layout_constraintStart_toStartOf="@+id/button5"
-        app:layout_constraintTop_toTopOf="@id/button5"/>
+        app:layout_constraintBottom_toBottomOf="@id/popup_invest_shape_stock_price"
+        app:layout_constraintEnd_toEndOf="@id/popup_invest_shape_stock_price"
+        app:layout_constraintStart_toStartOf="@+id/popup_invest_shape_stock_price"
+        app:layout_constraintTop_toTopOf="@id/popup_invest_shape_stock_price"/>
 
     <Button
-        android:id="@+id/popup_btn_invest"
+        android:id="@+id/popup_invest_btn_invest"
         android:layout_width="0dp"
         android:layout_height="wrap_content"
         android:layout_marginStart="16dp"
         android:layout_marginEnd="16dp"
         android:layout_marginBottom="24dp"
         android:background="@drawable/shape_button_count"
-        android:text="Aplicar"
+        android:text="Apply"
         android:textColor="@color/colorWhite"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
 
     <TextView
-        android:id="@+id/textView7"
+        android:id="@+id/popup_invest_quant_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="16dp"
         android:elevation="2dp"
-        android:text="Quantidade de Acões"
+        android:text="Stock Quantity"
         android:textColor="@color/colorWhite"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/button2"
-        app:layout_constraintStart_toStartOf="@+id/button2"
-        app:layout_constraintTop_toTopOf="@+id/button2" />
+        app:layout_constraintEnd_toEndOf="@+id/popup_invest_shape_quant"
+        app:layout_constraintStart_toStartOf="@+id/popup_invest_shape_quant"
+        app:layout_constraintTop_toTopOf="@+id/popup_invest_shape_quant" />
 
     <EditText
-        android:id="@+id/textView8"
+        android:id="@+id/popup_invest_quant"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="3dp"
-        android:autofillHints="0"
         android:elevation="8dp"
         android:inputType="numberDecimal"
         android:textColor="@color/colorMsg"
+        android:autofillHints="1"
         android:textSize="24sp"
-        app:layout_constraintBottom_toBottomOf="@+id/button2"
-        app:layout_constraintEnd_toEndOf="@+id/button2"
-        app:layout_constraintStart_toStartOf="@+id/button2"
+        android:text="1"
+        app:layout_constraintBottom_toBottomOf="@+id/popup_invest_shape_quant"
+        app:layout_constraintEnd_toEndOf="@+id/popup_invest_shape_quant"
+        app:layout_constraintStart_toStartOf="@+id/popup_invest_shape_quant"
         tools:ignore="LabelFor" />
 
     <TextView
-        android:id="@+id/textView9"
+        android:id="@+id/popup_invest_price_msg"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="12dp"
         android:elevation="2dp"
-        android:text="Valor"
+        android:text="Value"
         android:textColor="@color/colorWhite"
         android:textSize="18sp"
         app:layout_constraintEnd_toEndOf="@+id/secondDivider"
-        app:layout_constraintStart_toStartOf="@+id/button5"
-        app:layout_constraintTop_toTopOf="@+id/button5" />
+        app:layout_constraintStart_toStartOf="@+id/popup_invest_shape_stock_price"
+        app:layout_constraintTop_toTopOf="@+id/popup_invest_shape_stock_price" />
 
     <TextView
-        android:id="@+id/textView10"
+        android:id="@+id/popup_invest_price"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginBottom="12dp"
         android:elevation="2dp"
-        android:text="R$132,50"
+        android:text="0"
         android:textColor="@color/colorWhite"
         android:textSize="20sp"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/button5"
-        app:layout_constraintEnd_toEndOf="@+id/button5"
-        app:layout_constraintStart_toStartOf="@+id/button5" />
+        app:layout_constraintBottom_toBottomOf="@+id/popup_invest_shape_stock_price"
+        app:layout_constraintEnd_toEndOf="@+id/popup_invest_shape_stock_price"
+        app:layout_constraintStart_toStartOf="@+id/popup_invest_shape_stock_price" />
 </androidx.constraintlayout.widget.ConstraintLayout>

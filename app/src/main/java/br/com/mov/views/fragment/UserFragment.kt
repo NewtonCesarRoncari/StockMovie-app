@@ -1,5 +1,6 @@
 package br.com.mov.views.fragment
 
+import android.graphics.Typeface
 import android.os.Bundle
 import android.view.*
 import androidx.fragment.app.Fragment
@@ -17,6 +18,8 @@ import org.koin.android.viewmodel.ext.android.viewModel
 
 class UserFragment : Fragment() {
 
+    private lateinit var fontSemiBold: Typeface
+    private lateinit var fontRegular: Typeface
     private val navController by lazy { findNavController(this) }
     private val loginViewModel: LoginViewModel by viewModel()
     private val appComponentsViewModel: StateAppComponentsViewModel by sharedViewModel()
@@ -36,6 +39,9 @@ class UserFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
+        fontSemiBold = Typeface.createFromAsset(activity!!.assets, "fonts/OpenSans-Semibold.ttf")
+        fontRegular = Typeface.createFromAsset(activity!!.assets, "fonts/OpenSans-Regular.ttf")
+
         fragment_user_image.setImageResource(R.drawable.user_image)
         val tabsAdapter = TabsAdapter(activity!!.supportFragmentManager)
         val viewPager = view.findViewById<ViewPager>(R.id.fragment_user_view_pager)
@@ -53,6 +59,7 @@ class UserFragment : Fragment() {
                 this.user = user
                 fragment_user_name.text = this.user.name
                 fragment_user_email.text = this.user.email
+                setFonts()
             }
         })
     }
@@ -76,6 +83,11 @@ class UserFragment : Fragment() {
     override fun onCreateOptionsMenu(menu: Menu, inflater: MenuInflater) {
         super.onCreateOptionsMenu(menu, inflater)
         inflater.inflate(R.menu.menu_user, menu)
+    }
+
+    fun setFonts(){
+        fragment_user_name.typeface = fontSemiBold
+        fragment_user_email.typeface = fontRegular
     }
 }
 

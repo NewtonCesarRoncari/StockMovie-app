@@ -79,6 +79,23 @@ class UserRepository(
         return userRequest
     }
 
+    fun getUser(userId: Long): User? {
+        val call = service.getUser(userId)
+        call.enqueue(CallbackWithReturn(
+                object : CallbackWithReturn.AnswerCallback<UserRequest>{
+                    override fun whenSucess(result: UserRequest) {
+                        Log.i("retrofit", "request sucess")
+                        userRequest = User(result)
+                    }
+
+                    override fun whenFailure(error: String) {
+                        Log.e("retrofit", error)
+                    }
+                }
+        ))
+        return userRequest
+    }
+
     fun findUserInDatabase(): LiveData<User> = dao.findUser()
 
     fun insertUserInDatabase(user: User): LiveData<Resource<Long>> {

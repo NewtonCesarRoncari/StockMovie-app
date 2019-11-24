@@ -8,8 +8,11 @@ import retrofit2.http.Path
 
 interface MovieService {
 
-    @GET("movies")
+    @GET("movies?size=4307")
     fun getMovies(): Call<MovieRequestList>
+
+    @GET("movies?sort=title")
+    fun getMoviesOrderByTitle(): Call<MovieRequestList>
 
     @GET("movies/{id}")
     fun findMovieById(@Path("id") movieId: Long): Call<MovieFullRequest>

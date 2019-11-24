@@ -4,13 +4,13 @@ import java.math.BigDecimal
 
 
 class Position(
-        val id: Long,
+        val id: kotlin.Long,
 
-        val movie: Movie,
+        val movie: Long,
 
         val user: User,
 
-        val quantity: Long,
+        val quantity: kotlin.Long,
 
         val mediumPrice: BigDecimal
 )
