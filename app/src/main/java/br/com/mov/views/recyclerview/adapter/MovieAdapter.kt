@@ -94,9 +94,4 @@ class MovieAdapter(
 
     }
 
-    fun addList(moviesAditionals: List<MovieRequest>){
-        movies += moviesAditionals
-        notifyDataSetChanged()
-    }
-
 }

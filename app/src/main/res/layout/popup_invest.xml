@@ -36,7 +36,7 @@
         app:layout_constraintTop_toBottomOf="@+id/popup_invest_shape_quant" />
 
     <View
-        android:id="@+id/secondDivider"
+        android:id="@+id/fragment_movie_detail_second_divider"
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:background="@color/colorAccent"
@@ -98,7 +98,7 @@
         android:text="Value"
         android:textColor="@color/colorWhite"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/secondDivider"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_movie_detail_second_divider"
         app:layout_constraintStart_toStartOf="@+id/popup_invest_shape_stock_price"
         app:layout_constraintTop_toTopOf="@+id/popup_invest_shape_stock_price" />
 

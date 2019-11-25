@@ -51,7 +51,7 @@ class MovieFullRequest {
 
     var tagLine: Any? = null
 
-    var voteAverage: Int = 0
+    var voteAverage: Double = 0.0
 
     var voteCount: Int = 0
 

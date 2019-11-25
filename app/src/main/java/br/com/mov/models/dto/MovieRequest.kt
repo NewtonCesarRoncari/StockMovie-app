@@ -11,7 +11,7 @@ class MovieRequest {
 
     var title: String? = null
 
-    var pictureUrl: String? = null
+    var pictureUrl: String = ""
     @JsonIgnore
     private val additionalProperties: MutableMap<String, Any> = HashMap()
 

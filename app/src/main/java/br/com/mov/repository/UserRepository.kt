@@ -23,6 +23,8 @@ class UserRepository(
     private val job = Job()
     private val scope = CoroutineScope(Dispatchers.IO + job)
     private var userRequest: User? = null
+    var userFullReturned
+            = MutableLiveData<UserRequest>().apply { postValue(null) }
 
     val userReturn: MutableLiveData<UserReturned> =
             MutableLiveData<UserReturned>().also {
@@ -79,13 +81,13 @@ class UserRepository(
         return userRequest
     }
 
-    fun getUser(userId: Long): User? {
+    fun getUser(userId: Long) {
         val call = service.getUser(userId)
         call.enqueue(CallbackWithReturn(
                 object : CallbackWithReturn.AnswerCallback<UserRequest>{
                     override fun whenSucess(result: UserRequest) {
                         Log.i("retrofit", "request sucess")
-                        userRequest = User(result)
+                        userFullReturned.value = result
                     }
 
                     override fun whenFailure(error: String) {
@@ -93,7 +95,6 @@ class UserRepository(
                     }
                 }
         ))
-        return userRequest
     }
 
     fun findUserInDatabase(): LiveData<User> = dao.findUser()

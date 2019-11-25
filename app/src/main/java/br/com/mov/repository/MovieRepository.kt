@@ -15,16 +15,56 @@ class MovieRepository(
     var moviesReturned =
             MutableLiveData<List<MovieRequest>>().apply { postValue(null) }
 
+    var moviesOrderByTitleReturned =
+            MutableLiveData<List<MovieRequest>>().apply { postValue(null) }
+
+    var moviesOrderByRatingReturned =
+            MutableLiveData<List<MovieRequest>>().apply { postValue(null) }
+
     var movieReturned =
             MutableLiveData<MovieFullRequest>().apply { postValue(null) }
 
-    fun getMovieList() {
+    fun getMovies() {
         val call = service.getMovies()
         call.enqueue(CallbackWithReturn(
                 object : CallbackWithReturn.AnswerCallback<MovieRequestList> {
                     override fun whenSucess(result: MovieRequestList) {
                         Log.i("retrofit", "request sucess")
                         moviesReturned.value = result.movieRequest
+                    }
+
+                    override fun whenFailure(error: String) {
+                        Log.e("retrofit", error)
+                    }
+
+                }
+        ))
+    }
+
+    fun getMoviesOrderByTitle() {
+        val call = service.getMoviesOrderByTitle()
+        call.enqueue(CallbackWithReturn(
+                object : CallbackWithReturn.AnswerCallback<MovieRequestList> {
+                    override fun whenSucess(result: MovieRequestList) {
+                        Log.i("retrofit", "request sucess")
+                        moviesOrderByTitleReturned.value = result.movieRequest
+                    }
+
+                    override fun whenFailure(error: String) {
+                        Log.e("retrofit", error)
+                    }
+
+                }
+        ))
+    }
+
+    fun getMoviesOrderByRating() {
+        val call = service.getMoviesOderByRating()
+        call.enqueue(CallbackWithReturn(
+                object : CallbackWithReturn.AnswerCallback<MovieRequestList> {
+                    override fun whenSucess(result: MovieRequestList) {
+                        Log.i("retrofit", "request sucess")
+                        moviesOrderByRatingReturned.value = result.movieRequest
                     }
 
                     override fun whenFailure(error: String) {

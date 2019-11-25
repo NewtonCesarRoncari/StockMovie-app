@@ -1,12 +1,16 @@
 package br.com.mov.views.fragment
 
+import android.animation.Animator
 import android.app.Dialog
 import android.graphics.Color
 import android.graphics.Typeface
 import android.graphics.drawable.ColorDrawable
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
+import android.view.View.GONE
+import android.view.View.INVISIBLE
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.EditText
@@ -50,7 +54,7 @@ class MovieDetailFragment : Fragment() {
                 container, false)
 
         findMovieById(movieId)
-        
+
         userViewModel.findUserInDatabase().observe(this, Observer { user ->
             this.user = user
         })
@@ -63,7 +67,7 @@ class MovieDetailFragment : Fragment() {
 
         fontSemiBold = Typeface.createFromAsset(activity!!.assets, "fonts/OpenSans-Semibold.ttf")
         fontRegular = Typeface.createFromAsset(activity!!.assets, "fonts/OpenSans-Regular.ttf")
-
+        animation_apply_stock.visibility = INVISIBLE
         checkMovieId()
         popup = Dialog(context!!)
 
@@ -78,8 +82,9 @@ class MovieDetailFragment : Fragment() {
         this.stockQuantity = popup.findViewById(R.id.popup_invest_quant)
         this.stockPrice = popup.findViewById(R.id.popup_invest_price)
         stockPrice.text = movie.stockPrice!!.formatForUSACoin()
+
         stockQuantity.setOnClickListener {
-            if (stockQuantity.text.toString().isNotEmpty()){
+            if (stockQuantity.text.toString().isNotEmpty()) {
                 stockPrice.text =
                         movieDetailViewModel
                                 .priceStocksCalculated(stockQuantity.text.toString().toLong(),
@@ -87,12 +92,14 @@ class MovieDetailFragment : Fragment() {
             }
         }
         val btnInvest: Button = popup.findViewById(R.id.popup_invest_btn_invest)
+
         btnInvest.setOnClickListener {
-            if (stockQuantity.text.toString().isNotEmpty()){
+            if (stockQuantity.text.toString().isNotEmpty()) {
                 buyOrderViewModel.postBuyOrder(
                         BuyOrder(movieId, user.id!!, stockQuantity.text.toString().toLong()))
             }
             popup.dismiss()
+            initAnimation()
         }
         popup.show()
     }
@@ -118,6 +125,8 @@ class MovieDetailFragment : Fragment() {
             fragment_movie_detail_name_actor_one.text = movie.cast!![0].actor
             fragment_movie_detail_name_actor_two.text = movie.cast!![0].character
             fragment_movie_detail_genre.text = movie.genres!![0].name
+            fragment_movie_detail_rating_bar.rating = movie.voteAverage.toFloat()
+            fragment_movie_detail_rating_numeric.text = movie.voteAverage.toString()
             fragment_movie_detail_movie_title.text = movie.originalTitle
             fragment_movie_detail_synopsis.text = movie.overview
             fragment_movie_detail_stock_quant.text = movie.quantityAvailable.toString()
@@ -148,5 +157,65 @@ class MovieDetailFragment : Fragment() {
         fragment_movie_detail_msg_box_office.typeface = fontRegular
         fragment_movie_detail_box_office.typeface = fontRegular
         fragment_movie_detail_btn_invest.typeface = fontSemiBold
+    }
+
+    private fun initAnimation() {
+        animation_apply_stock.visibility = View.VISIBLE
+        animation_apply_stock.setAnimation("anim/apply_success.json")
+        animation_apply_stock.playAnimation()
+        animation_apply_stock.addAnimatorListener(animatorListener())
+    }
+
+    private fun animatorListener(): Animator.AnimatorListener {
+        return object : Animator.AnimatorListener {
+            override fun onAnimationStart(animation: Animator) {
+                Log.e("Animation:", "start")
+                hiddenFields()
+            }
+
+            override fun onAnimationEnd(animation: Animator) {
+
+            }
+
+            override fun onAnimationCancel(animation: Animator) {
+                Log.e("Animation:", "cancel")
+            }
+
+            override fun onAnimationRepeat(animation: Animator) {
+                Log.e("Animation:", "repeat")
+            }
+        }
+    }
+
+    private fun hiddenFields() {
+        fragment_movie_detail_item_movie_img.visibility = GONE
+        fragment_movie_detail_rating_bar.visibility = GONE
+        fragment_movie_detail_rating_numeric.visibility = GONE
+        fragment_movie_detail_name_director.visibility = GONE
+        fragment_movie_detail_msg_director.visibility = GONE
+        fragment_movie_detail_name_director.visibility = GONE
+        fragment_movie_detail_msg_cast.visibility = GONE
+        fragment_movie_detail_name_actor_one.visibility = GONE
+        fragment_movie_detail_name_actor_two.visibility = GONE
+        fragment_movie_detail_msg_genre.visibility = GONE
+        fragment_movie_detail_genre.visibility = GONE
+        fragment_movie_detail_movie_title.visibility = GONE
+        fragment_movie_detail_synopsis.visibility = GONE
+        fragment_movie_detail_msg_stock.visibility = GONE
+        fragment_movie_detail_stock_quant.visibility = GONE
+        fragment_movie_detail_msg_value_stock.visibility = GONE
+        fragment_movie_detail_stock_price.visibility = GONE
+        fragment_movie_detail_msg_budget.visibility = GONE
+        fragment_movie_detail_budget.visibility = GONE
+        fragment_movie_detail_msg_amount.visibility = GONE
+        fragment_movie_detail_amount_value.visibility = GONE
+        fragment_movie_detail_msg_box_office.visibility = GONE
+        fragment_movie_detail_box_office.visibility = GONE
+        fragment_movie_detail_btn_invest.visibility = GONE
+        fragment_movie_detail_first_divider.visibility = GONE
+        fragment_movie_detail_second_divider.visibility = GONE
+        fragment_movie_detail_shape_value_stock.visibility = GONE
+        fragment_movie_detail_shape_quantity_stock.visibility = GONE
+        fragment_movie_detail_shape_amount.visibility = GONE
     }
 }

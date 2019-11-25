@@ -112,7 +112,7 @@
         app:layout_constraintTop_toTopOf="@+id/fragment_movie_detail_msg_genre" />
 
     <RatingBar
-        android:id="@+id/fragment_movie_detail_ratingBar"
+        android:id="@+id/fragment_movie_detail_rating_bar"
         style="?android:ratingBarStyleSmall"
         android:layout_width="wrap_content"
         android:layout_height="16dp"
@@ -131,10 +131,10 @@
         android:text="4.5"
         android:textColor="@color/colorYellow"
         android:textStyle="bold"
-        app:layout_constraintBottom_toBottomOf="@+id/fragment_movie_detail_ratingBar"
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_movie_detail_rating_bar"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/fragment_movie_detail_ratingBar" />
+        app:layout_constraintStart_toEndOf="@+id/fragment_movie_detail_rating_bar" />
 
     <TextView
         android:id="@+id/fragment_movie_detail_movie_title"
@@ -185,7 +185,7 @@
         android:text="R$321,00"
         android:textColor="@color/colorMsg"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_movie_detail_shape_amount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent" />
@@ -195,7 +195,7 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:text="Orçamento"
+        android:text="Budget"
         android:textColor="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="@+id/fragment_movie_detail_budget"
         app:layout_constraintStart_toStartOf="@+id/fragment_movie_detail_budget"
@@ -210,7 +210,7 @@
         android:text="R$2.020,00"
         android:textColor="@color/colorMsg"
         android:textSize="18sp"
-        app:layout_constraintBottom_toTopOf="@+id/button"
+        app:layout_constraintBottom_toTopOf="@+id/fragment_movie_detail_shape_amount"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="1.0"
         app:layout_constraintStart_toStartOf="parent" />
@@ -220,14 +220,14 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginTop="2dp"
-        android:text="Bilheteria"
+        android:text="Box Office"
         android:textColor="@color/colorAccent"
         app:layout_constraintEnd_toEndOf="@+id/fragment_movie_detail_box_office"
         app:layout_constraintStart_toStartOf="@+id/fragment_movie_detail_box_office"
         app:layout_constraintTop_toBottomOf="@+id/fragment_movie_detail_box_office" />
 
     <Button
-        android:id="@+id/button"
+        android:id="@+id/fragment_movie_detail_shape_amount"
         android:layout_width="110dp"
         android:layout_height="80dp"
         android:layout_marginBottom="16dp"
@@ -261,9 +261,9 @@
         android:text="R$2.341,00"
         android:textColor="@color/colorWhite"
         android:textSize="18sp"
-        app:layout_constraintEnd_toEndOf="@+id/button"
-        app:layout_constraintStart_toStartOf="@+id/button"
-        app:layout_constraintTop_toTopOf="@+id/button" />
+        app:layout_constraintEnd_toEndOf="@+id/fragment_movie_detail_shape_amount"
+        app:layout_constraintStart_toStartOf="@+id/fragment_movie_detail_shape_amount"
+        app:layout_constraintTop_toTopOf="@+id/fragment_movie_detail_shape_amount" />
 
     <TextView
         android:id="@+id/fragment_movie_detail_msg_amount"
@@ -273,12 +273,12 @@
         android:elevation="2dp"
         android:text="Amount"
         android:textColor="@color/colorWhite"
-        app:layout_constraintBottom_toBottomOf="@+id/button"
-        app:layout_constraintEnd_toEndOf="@+id/button"
-        app:layout_constraintStart_toStartOf="@+id/button" />
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_movie_detail_shape_amount"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_movie_detail_shape_amount"
+        app:layout_constraintStart_toStartOf="@+id/fragment_movie_detail_shape_amount" />
 
     <Button
-        android:id="@+id/button3"
+        android:id="@+id/fragment_movie_detail_shape_quantity_stock"
         android:layout_width="wrap_content"
         android:layout_height="65dp"
         android:layout_marginTop="20dp"
@@ -286,11 +286,11 @@
         android:background="@drawable/shape_quant_stock"
         android:clickable="false"
         android:focusable="false"
-        app:layout_constraintEnd_toStartOf="@+id/button"
+        app:layout_constraintEnd_toStartOf="@+id/fragment_movie_detail_shape_amount"
         app:layout_constraintTop_toBottomOf="@+id/fragment_movie_detail_msg_budget" />
 
     <Button
-        android:id="@+id/button4"
+        android:id="@+id/fragment_movie_detail_shape_value_stock"
         android:layout_width="wrap_content"
         android:layout_height="65dp"
         android:layout_marginStart="28dp"
@@ -298,19 +298,19 @@
         android:background="@drawable/shape_value_stock"
         android:clickable="false"
         android:focusable="false"
-        app:layout_constraintStart_toEndOf="@+id/button"
+        app:layout_constraintStart_toEndOf="@+id/fragment_movie_detail_shape_amount"
         app:layout_constraintTop_toBottomOf="@+id/fragment_movie_detail_msg_box_office" />
 
     <View
-        android:id="@+id/secondDivider"
+        android:id="@+id/fragment_movie_detail_second_divider"
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:background="@color/colorAccent"
         android:elevation="2dp"
-        app:layout_constraintBottom_toBottomOf="@id/button4"
-        app:layout_constraintEnd_toEndOf="@id/button4"
-        app:layout_constraintStart_toStartOf="@+id/button4"
-        app:layout_constraintTop_toTopOf="@id/button4"/>
+        app:layout_constraintBottom_toBottomOf="@id/fragment_movie_detail_shape_value_stock"
+        app:layout_constraintEnd_toEndOf="@id/fragment_movie_detail_shape_value_stock"
+        app:layout_constraintStart_toStartOf="@+id/fragment_movie_detail_shape_value_stock"
+        app:layout_constraintTop_toTopOf="@id/fragment_movie_detail_shape_value_stock"/>
 
     <TextView
         android:id="@+id/fragment_movie_detail_msg_stock"
@@ -320,20 +320,20 @@
         android:elevation="2dp"
         android:text="Stocks"
         android:textColor="@color/colorWhite"
-        app:layout_constraintEnd_toEndOf="@+id/button3"
-        app:layout_constraintStart_toStartOf="@+id/button3"
-        app:layout_constraintTop_toTopOf="@+id/button3" />
+        app:layout_constraintEnd_toEndOf="@+id/fragment_movie_detail_shape_quantity_stock"
+        app:layout_constraintStart_toStartOf="@+id/fragment_movie_detail_shape_quantity_stock"
+        app:layout_constraintTop_toTopOf="@+id/fragment_movie_detail_shape_quantity_stock" />
 
     <View
-        android:id="@+id/firstDivider"
+        android:id="@+id/fragment_movie_detail_first_divider"
         android:layout_width="0dp"
         android:layout_height="2dp"
         android:background="#05008C"
         android:elevation="2dp"
-        app:layout_constraintBottom_toBottomOf="@id/button3"
-        app:layout_constraintEnd_toEndOf="@id/button3"
-        app:layout_constraintStart_toStartOf="@+id/button3"
-        app:layout_constraintTop_toTopOf="@id/button3"/>
+        app:layout_constraintBottom_toBottomOf="@id/fragment_movie_detail_shape_quantity_stock"
+        app:layout_constraintEnd_toEndOf="@id/fragment_movie_detail_shape_quantity_stock"
+        app:layout_constraintStart_toStartOf="@+id/fragment_movie_detail_shape_quantity_stock"
+        app:layout_constraintTop_toTopOf="@id/fragment_movie_detail_shape_quantity_stock"/>
 
     <TextView
         android:id="@+id/fragment_movie_detail_msg_value_stock"
@@ -343,9 +343,9 @@
         android:elevation="2dp"
         android:text="Value"
         android:textColor="@color/colorWhite"
-        app:layout_constraintEnd_toEndOf="@+id/button4"
-        app:layout_constraintStart_toStartOf="@+id/button4"
-        app:layout_constraintTop_toTopOf="@+id/button4" />
+        app:layout_constraintEnd_toEndOf="@+id/fragment_movie_detail_shape_value_stock"
+        app:layout_constraintStart_toStartOf="@+id/fragment_movie_detail_shape_value_stock"
+        app:layout_constraintTop_toTopOf="@+id/fragment_movie_detail_shape_value_stock" />
 
     <TextView
         android:id="@+id/fragment_movie_detail_stock_quant"
@@ -355,9 +355,9 @@
         android:elevation="2dp"
         android:text="1.560.290"
         android:textColor="@color/colorWhite"
-        app:layout_constraintBottom_toBottomOf="@+id/button3"
-        app:layout_constraintEnd_toEndOf="@+id/button3"
-        app:layout_constraintStart_toStartOf="@+id/button3" />
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_movie_detail_shape_quantity_stock"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_movie_detail_shape_quantity_stock"
+        app:layout_constraintStart_toStartOf="@+id/fragment_movie_detail_shape_quantity_stock" />
 
     <TextView
         android:id="@+id/fragment_movie_detail_stock_price"
@@ -367,9 +367,28 @@
         android:elevation="2dp"
         android:text="R$17,50"
         android:textColor="@color/colorWhite"
-        app:layout_constraintBottom_toBottomOf="@+id/button4"
-        app:layout_constraintEnd_toEndOf="@+id/button4"
-        app:layout_constraintStart_toStartOf="@+id/button4" />
+        app:layout_constraintBottom_toBottomOf="@+id/fragment_movie_detail_shape_value_stock"
+        app:layout_constraintEnd_toEndOf="@+id/fragment_movie_detail_shape_value_stock"
+        app:layout_constraintStart_toStartOf="@+id/fragment_movie_detail_shape_value_stock" />
 
+    <FrameLayout
+        android:layout_width="211dp"
+        android:layout_height="336dp"
+        android:layout_marginStart="100dp"
+        android:layout_marginTop="160dp"
+        android:layout_marginEnd="100dp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent">
+
+        <com.airbnb.lottie.LottieAnimationView
+            android:id="@+id/animation_apply_stock"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:scaleType="centerCrop"
+            app:lottie_autoPlay="false"
+            app:lottie_loop="false" />
+
+    </FrameLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

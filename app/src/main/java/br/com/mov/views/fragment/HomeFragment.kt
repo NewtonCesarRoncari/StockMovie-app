@@ -30,7 +30,8 @@ class HomeFragment : Fragment() {
     private val loginViewModel: LoginViewModel by viewModel()
     private val movieViewModel: MovieViewModel by viewModel()
     private lateinit var movieAdapter: MovieAdapter
-    private lateinit var filtrateMovieAdapter: MovieAdapter
+    private lateinit var orderTitleMovieAdapter: MovieAdapter
+    private lateinit var orderRatingMovieAdapter: MovieAdapter
     private val navController by lazy { findNavController(this) }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -40,6 +41,8 @@ class HomeFragment : Fragment() {
         checkStateLogin()
         appComponentsViewModel.havCoponent = VisualComponents(true)
         movieViewModel.getMovies()
+        movieViewModel.getMoviesOrderByTitle()
+        movieViewModel.getMoviesOrderByRating()
         return view
     }
 
@@ -49,7 +52,7 @@ class HomeFragment : Fragment() {
         val font = Typeface.createFromAsset(activity!!.assets, "fonts/OpenSans-Semibold.ttf")
 
         first_msg_movies.typeface = font
-        second_msg_movies.typeface = font
+        msg_movies_order_title.typeface = font
 
 
         this.slideList = arrayListOf(
@@ -66,25 +69,9 @@ class HomeFragment : Fragment() {
 
         indicator.setupWithViewPager(slider_pager, true)
 
-        initFiltrateMovieAdapter()
         initMovieAdapter()
-    }
-
-    private fun initFiltrateMovieAdapter() {
-        movieViewModel.checkMoviesReturned()?.observe(viewLifecycleOwner,
-                androidx.lifecycle.Observer { movieList ->
-                    if (movieList != null) {
-                        this.filtrateMovieAdapter = context?.let { context ->
-                            MovieAdapter(context, movieList)
-                        }!!
-                        rv_movies_filtrates.adapter = filtrateMovieAdapter
-                        rv_movies_filtrates.layoutManager = LinearLayoutManager(context,
-                                LinearLayoutManager.HORIZONTAL, false)
-                        filtrateMovieAdapter.onItemCliclListener = { movie ->
-                            goToMovieDetailFragment(movie.id)
-                        }
-                    }
-                })
+        initOrderTitleMovieAdapter()
+        initOrderRatingMovieAdapter()
     }
 
     private fun initMovieAdapter() {
@@ -98,6 +85,40 @@ class HomeFragment : Fragment() {
                         rv_movies.layoutManager = LinearLayoutManager(context,
                                 LinearLayoutManager.HORIZONTAL, false)
                         movieAdapter.onItemCliclListener = { movie ->
+                            goToMovieDetailFragment(movie.id)
+                        }
+                    }
+                })
+    }
+
+    private fun initOrderTitleMovieAdapter() {
+        movieViewModel.checkMoviesOrderByTitleReturned()?.observe(viewLifecycleOwner,
+                androidx.lifecycle.Observer { movieList ->
+                    if (movieList != null) {
+                        this.orderTitleMovieAdapter = context?.let { context ->
+                            MovieAdapter(context, movieList)
+                        }!!
+                        rv_movies_order_title.adapter = orderTitleMovieAdapter
+                        rv_movies_order_title.layoutManager = LinearLayoutManager(context,
+                                LinearLayoutManager.HORIZONTAL, false)
+                        orderTitleMovieAdapter.onItemCliclListener = { movie ->
+                            goToMovieDetailFragment(movie.id)
+                        }
+                    }
+                })
+    }
+
+    private fun initOrderRatingMovieAdapter() {
+        movieViewModel.checkMoviesOrderByRatingReturned()?.observe(viewLifecycleOwner,
+                androidx.lifecycle.Observer { movieList ->
+                    if (movieList != null) {
+                        this.orderRatingMovieAdapter = context?.let { context ->
+                            MovieAdapter(context, movieList)
+                        }!!
+                        rv_movies_order_rating.adapter = orderRatingMovieAdapter
+                        rv_movies_order_rating.layoutManager = LinearLayoutManager(context,
+                                LinearLayoutManager.HORIZONTAL, false)
+                        orderRatingMovieAdapter.onItemCliclListener = { movie ->
                             goToMovieDetailFragment(movie.id)
                         }
                     }

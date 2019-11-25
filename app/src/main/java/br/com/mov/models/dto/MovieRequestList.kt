@@ -33,7 +33,7 @@ class MovieRequestList {
 
         var size: Int? = null
 
-        var sort: Sort_? = null
+        var sort: Sort? = null
 
         var numberOfElements: Int? = null
 

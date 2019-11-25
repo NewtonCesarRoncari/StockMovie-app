@@ -195,7 +195,7 @@ class LoginFragment : Fragment() {
 
     private fun initFieldsLoginPopup() {
         positiveButton = popup.findViewById(R.id.popup_login_login_btn)
-        progressBar = popup.findViewById(R.id.popup_login_progressBar)
+        progressBar = popup.findViewById(R.id.popup_login_progress_bar)
         toggleMsg = popup.findViewById(R.id.popup_login_new_count)
         msgWelcome = popup.findViewById(R.id.popup_login_welcome)
         msg = popup.findViewById(R.id.popup_login_msg)
@@ -240,13 +240,17 @@ class LoginFragment : Fragment() {
                 } else if (userReturned.userReturned == UserSituation.RETURNED) {
                     showProgressBar(false)
                     popup.dismiss()
-                    animation.visibility = VISIBLE
-                    animation.setAnimation("anim/logo_animated.json")
-                    animation.playAnimation()
-                    animation.addAnimatorListener(animatorListener())
+                    initAnimation()
                 }
             }
         })
+    }
+
+    private fun initAnimation() {
+        animation.visibility = VISIBLE
+        animation.setAnimation("anim/logo_animated.json")
+        animation.playAnimation()
+        animation.addAnimatorListener(animatorListener())
     }
 
     private fun animatorListener(): Animator.AnimatorListener {

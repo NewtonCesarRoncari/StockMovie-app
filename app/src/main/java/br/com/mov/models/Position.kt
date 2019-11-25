@@ -6,7 +6,7 @@ import java.math.BigDecimal
 class Position(
         val id: kotlin.Long,
 
-        val movie: Long,
+        val movie: Movie,
 
         val user: User,
 
