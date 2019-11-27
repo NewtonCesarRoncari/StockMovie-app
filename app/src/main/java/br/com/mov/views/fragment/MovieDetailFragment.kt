@@ -131,6 +131,7 @@ class MovieDetailFragment : Fragment() {
             fragment_movie_detail_synopsis.text = movie.overview
             fragment_movie_detail_stock_quant.text = movie.quantityAvailable.toString()
             fragment_movie_detail_stock_price.text = movie.stockPrice!!.formatForUSACoin()
+            fragment_movie_detail_amount_value.text = movie.amount.formatForUSACoin()
             fragment_movie_detail_budget.text = movie.budget!!.formatForUSACoin()
             fragment_movie_detail_box_office.text = movie.revenue!!.formatForUSACoin()
             setFonts()

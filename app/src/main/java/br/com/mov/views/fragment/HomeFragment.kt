@@ -56,10 +56,10 @@ class HomeFragment : Fragment() {
 
 
         this.slideList = arrayListOf(
-                Slide(R.drawable.slide1),
-                Slide(R.drawable.slide2),
-                Slide(R.drawable.slide1),
-                Slide(R.drawable.slide2))
+                Slide(R.drawable.batman_slide),
+                Slide(R.drawable.interestellar_slide),
+                Slide(R.drawable.starwars_slide),
+                Slide(R.drawable.thorin_slide))
 
         val adapter = context?.let { SlidePagerAdapter(it, slideList) }
         slider_pager.adapter = adapter

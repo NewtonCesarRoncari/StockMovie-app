@@ -25,6 +25,7 @@ import java.util.*
         "runtime",
         "stockPrice",
         "quantityAvailable",
+        "amount",
         "cast",
         "genres",
         "production"
@@ -68,6 +69,8 @@ class MovieFullRequest {
     var stockPrice: BigDecimal? = null
 
     var quantityAvailable: Long? = null
+
+    var amount: BigDecimal = BigDecimal.ZERO
 
     var cast: List<Cast>? = null
 
