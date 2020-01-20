@@ -43,7 +43,7 @@ Para garantir o bom funcionamento da aplicação rode com:
 
 ### Instalando 
 
-Após clonar o projeto, importe no seu Android Studio, aceitando as justeções da Ide, os pré requisitos serão importados automaticamente,
+Após clonar o projeto, importe no seu Android Studio, aceitando as susjestões da Ide, os pré requisitos serão importados automaticamente,
 
 - No pacote 'retrofit', há a classe 'ConnectionRetrofit.kt', altere a constante BASE_URL, para o endereço que irá utilizar ao
 realizar o download da API
