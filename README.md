@@ -25,9 +25,9 @@ aberta se encontra informações dos filmes e suas estimativas de lucros, como o
 tal valor é necessário para o cálculo do valor da ação, a qualquer momento o usuário tem acesso aos seus dados e também a sua carteira
 de investimentos
 
-Detalhes do filme     |  Dados do usuário |  Carteira
+Detalhes do filme     |  Dados do usuário |  Carteira 
 :-------------------------:|:-------------------------:|:-------------------------:
-<img src="https://raw.githubusercontent.com/NewtonCesarRoncari/StockMovie-app/master/app/readme/Stock_movie_detail.jpeg" width="250" height="420" title="Detalhes do filme"/> | <img src="https://raw.githubusercontent.com/NewtonCesarRoncari/StockMovie-app/master/app/readme/Stock_movie_user_data.jpeg" width="250" height="420" title="Dados do usuário"| <img src="https://raw.githubusercontent.com/NewtonCesarRoncari/StockMovie-app/master/app/readme/Stock_movie_user_wallet.jpeg" width="250" height="420" title="Carteira"/>
+<img src="https://raw.githubusercontent.com/NewtonCesarRoncari/StockMovie-app/master/app/readme/Stock_movie_detail.jpeg" width="250" height="420" title="Detalhes do filme"/> | <img src="https://raw.githubusercontent.com/NewtonCesarRoncari/StockMovie-app/master/app/readme/Stock_movie_user_data.jpeg" width="250" height="420" title="Dados do usuário"/> | <img src="https://github.com/NewtonCesarRoncari/StockMovie-app/blob/master/app/readme/Stock_movie_user_wallet.jpg" width="250" height="420" title="Carteira"/>
 
 ## Rodando a aplicação
 
